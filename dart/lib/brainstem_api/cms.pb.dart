@@ -12,6 +12,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 import 'package:protobuf/well_known_types/google/protobuf/duration.pb.dart'
     as $4;
@@ -1235,6 +1236,607 @@ class CmsState extends $pb.GeneratedMessage {
   $core.bool hasGestureName() => $_has(2);
   @$pb.TagNumber(3)
   void clearGestureName() => $_clearField(3);
+}
+
+class AcquireControlRequest extends $pb.GeneratedMessage {
+  factory AcquireControlRequest({
+    $core.String? clientId,
+  }) {
+    final result = create();
+    if (clientId != null) result.clientId = clientId;
+    return result;
+  }
+
+  AcquireControlRequest._();
+
+  factory AcquireControlRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AcquireControlRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AcquireControlRequest',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'clientId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcquireControlRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcquireControlRequest copyWith(
+          void Function(AcquireControlRequest) updates) =>
+      super.copyWith((message) => updates(message as AcquireControlRequest))
+          as AcquireControlRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AcquireControlRequest create() => AcquireControlRequest._();
+  @$core.override
+  AcquireControlRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AcquireControlRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AcquireControlRequest>(create);
+  static AcquireControlRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get clientId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set clientId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasClientId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearClientId() => $_clearField(1);
+}
+
+class ControlLeaseRequest extends $pb.GeneratedMessage {
+  factory ControlLeaseRequest({
+    $core.String? token,
+  }) {
+    final result = create();
+    if (token != null) result.token = token;
+    return result;
+  }
+
+  ControlLeaseRequest._();
+
+  factory ControlLeaseRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ControlLeaseRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ControlLeaseRequest',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'token')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ControlLeaseRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ControlLeaseRequest copyWith(void Function(ControlLeaseRequest) updates) =>
+      super.copyWith((message) => updates(message as ControlLeaseRequest))
+          as ControlLeaseRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ControlLeaseRequest create() => ControlLeaseRequest._();
+  @$core.override
+  ControlLeaseRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ControlLeaseRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ControlLeaseRequest>(create);
+  static ControlLeaseRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get token => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set token($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearToken() => $_clearField(1);
+}
+
+class ControlLease extends $pb.GeneratedMessage {
+  factory ControlLease({
+    $core.bool? accepted,
+    $core.String? token,
+    $core.int? leaseDurationMs,
+    CommandRejectReason? reason,
+    ControlStatus? status,
+  }) {
+    final result = create();
+    if (accepted != null) result.accepted = accepted;
+    if (token != null) result.token = token;
+    if (leaseDurationMs != null) result.leaseDurationMs = leaseDurationMs;
+    if (reason != null) result.reason = reason;
+    if (status != null) result.status = status;
+    return result;
+  }
+
+  ControlLease._();
+
+  factory ControlLease.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ControlLease.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ControlLease',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'accepted')
+    ..aOS(2, _omitFieldNames ? '' : 'token')
+    ..aI(3, _omitFieldNames ? '' : 'leaseDurationMs',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aE<CommandRejectReason>(4, _omitFieldNames ? '' : 'reason',
+        enumValues: CommandRejectReason.values)
+    ..aOM<ControlStatus>(5, _omitFieldNames ? '' : 'status',
+        subBuilder: ControlStatus.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ControlLease clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ControlLease copyWith(void Function(ControlLease) updates) =>
+      super.copyWith((message) => updates(message as ControlLease))
+          as ControlLease;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ControlLease create() => ControlLease._();
+  @$core.override
+  ControlLease createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ControlLease getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ControlLease>(create);
+  static ControlLease? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get accepted => $_getBF(0);
+  @$pb.TagNumber(1)
+  set accepted($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAccepted() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAccepted() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get token => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set token($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasToken() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearToken() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get leaseDurationMs => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set leaseDurationMs($core.int value) => $_setUnsignedInt32(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLeaseDurationMs() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLeaseDurationMs() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  CommandRejectReason get reason => $_getN(3);
+  @$pb.TagNumber(4)
+  set reason(CommandRejectReason value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasReason() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearReason() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  ControlStatus get status => $_getN(4);
+  @$pb.TagNumber(5)
+  set status(ControlStatus value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasStatus() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearStatus() => $_clearField(5);
+  @$pb.TagNumber(5)
+  ControlStatus ensureStatus() => $_ensure(4);
+}
+
+class WalkRequest extends $pb.GeneratedMessage {
+  factory WalkRequest({
+    $core.String? token,
+    $fixnum.Int64? sequence,
+    $1.Vector3? direction,
+  }) {
+    final result = create();
+    if (token != null) result.token = token;
+    if (sequence != null) result.sequence = sequence;
+    if (direction != null) result.direction = direction;
+    return result;
+  }
+
+  WalkRequest._();
+
+  factory WalkRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory WalkRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'WalkRequest',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'token')
+    ..a<$fixnum.Int64>(
+        2, _omitFieldNames ? '' : 'sequence', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<$1.Vector3>(3, _omitFieldNames ? '' : 'direction',
+        subBuilder: $1.Vector3.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  WalkRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  WalkRequest copyWith(void Function(WalkRequest) updates) =>
+      super.copyWith((message) => updates(message as WalkRequest))
+          as WalkRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static WalkRequest create() => WalkRequest._();
+  @$core.override
+  WalkRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static WalkRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<WalkRequest>(create);
+  static WalkRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get token => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set token($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasToken() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearToken() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get sequence => $_getI64(1);
+  @$pb.TagNumber(2)
+  set sequence($fixnum.Int64 value) => $_setInt64(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasSequence() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearSequence() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $1.Vector3 get direction => $_getN(2);
+  @$pb.TagNumber(3)
+  set direction($1.Vector3 value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDirection() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDirection() => $_clearField(3);
+  @$pb.TagNumber(3)
+  $1.Vector3 ensureDirection() => $_ensure(2);
+}
+
+class CommandAck extends $pb.GeneratedMessage {
+  factory CommandAck({
+    $core.bool? accepted,
+    CommandRejectReason? reason,
+    $fixnum.Int64? sequence,
+    ControlStatus? status,
+  }) {
+    final result = create();
+    if (accepted != null) result.accepted = accepted;
+    if (reason != null) result.reason = reason;
+    if (sequence != null) result.sequence = sequence;
+    if (status != null) result.status = status;
+    return result;
+  }
+
+  CommandAck._();
+
+  factory CommandAck.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory CommandAck.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'CommandAck',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'accepted')
+    ..aE<CommandRejectReason>(2, _omitFieldNames ? '' : 'reason',
+        enumValues: CommandRejectReason.values)
+    ..a<$fixnum.Int64>(
+        3, _omitFieldNames ? '' : 'sequence', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aOM<ControlStatus>(4, _omitFieldNames ? '' : 'status',
+        subBuilder: ControlStatus.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  CommandAck clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  CommandAck copyWith(void Function(CommandAck) updates) =>
+      super.copyWith((message) => updates(message as CommandAck)) as CommandAck;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CommandAck create() => CommandAck._();
+  @$core.override
+  CommandAck createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static CommandAck getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CommandAck>(create);
+  static CommandAck? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get accepted => $_getBF(0);
+  @$pb.TagNumber(1)
+  set accepted($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAccepted() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAccepted() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  CommandRejectReason get reason => $_getN(1);
+  @$pb.TagNumber(2)
+  set reason(CommandRejectReason value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasReason() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearReason() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get sequence => $_getI64(2);
+  @$pb.TagNumber(3)
+  set sequence($fixnum.Int64 value) => $_setInt64(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasSequence() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSequence() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  ControlStatus get status => $_getN(3);
+  @$pb.TagNumber(4)
+  set status(ControlStatus value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasStatus() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearStatus() => $_clearField(4);
+  @$pb.TagNumber(4)
+  ControlStatus ensureStatus() => $_ensure(3);
+}
+
+class ControlStatus extends $pb.GeneratedMessage {
+  factory ControlStatus({
+    CmsState? fsm,
+    $core.bool? motorOutputEnabled,
+    ControlOwner? owner,
+    $core.bool? criticalMotorFault,
+    $core.bool? grpcLeaseActive,
+    $core.int? leaseRemainingMs,
+    $fixnum.Int64? lastAcceptedSequence,
+    CommandRejectReason? lastDecision,
+    $core.bool? readyForWalk,
+    $core.String? ownerId,
+    $fixnum.Int64? acceptedCount,
+    $fixnum.Int64? rejectedCount,
+  }) {
+    final result = create();
+    if (fsm != null) result.fsm = fsm;
+    if (motorOutputEnabled != null)
+      result.motorOutputEnabled = motorOutputEnabled;
+    if (owner != null) result.owner = owner;
+    if (criticalMotorFault != null)
+      result.criticalMotorFault = criticalMotorFault;
+    if (grpcLeaseActive != null) result.grpcLeaseActive = grpcLeaseActive;
+    if (leaseRemainingMs != null) result.leaseRemainingMs = leaseRemainingMs;
+    if (lastAcceptedSequence != null)
+      result.lastAcceptedSequence = lastAcceptedSequence;
+    if (lastDecision != null) result.lastDecision = lastDecision;
+    if (readyForWalk != null) result.readyForWalk = readyForWalk;
+    if (ownerId != null) result.ownerId = ownerId;
+    if (acceptedCount != null) result.acceptedCount = acceptedCount;
+    if (rejectedCount != null) result.rejectedCount = rejectedCount;
+    return result;
+  }
+
+  ControlStatus._();
+
+  factory ControlStatus.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ControlStatus.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ControlStatus',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aOM<CmsState>(1, _omitFieldNames ? '' : 'fsm',
+        subBuilder: CmsState.create)
+    ..aOB(2, _omitFieldNames ? '' : 'motorOutputEnabled')
+    ..aE<ControlOwner>(3, _omitFieldNames ? '' : 'owner',
+        enumValues: ControlOwner.values)
+    ..aOB(4, _omitFieldNames ? '' : 'criticalMotorFault')
+    ..aOB(5, _omitFieldNames ? '' : 'grpcLeaseActive')
+    ..aI(6, _omitFieldNames ? '' : 'leaseRemainingMs',
+        fieldType: $pb.PbFieldType.OU3)
+    ..a<$fixnum.Int64>(
+        7, _omitFieldNames ? '' : 'lastAcceptedSequence', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..aE<CommandRejectReason>(8, _omitFieldNames ? '' : 'lastDecision',
+        enumValues: CommandRejectReason.values)
+    ..aOB(9, _omitFieldNames ? '' : 'readyForWalk')
+    ..aOS(10, _omitFieldNames ? '' : 'ownerId')
+    ..a<$fixnum.Int64>(
+        11, _omitFieldNames ? '' : 'acceptedCount', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(
+        12, _omitFieldNames ? '' : 'rejectedCount', $pb.PbFieldType.OU6,
+        defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ControlStatus clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ControlStatus copyWith(void Function(ControlStatus) updates) =>
+      super.copyWith((message) => updates(message as ControlStatus))
+          as ControlStatus;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ControlStatus create() => ControlStatus._();
+  @$core.override
+  ControlStatus createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ControlStatus getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ControlStatus>(create);
+  static ControlStatus? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  CmsState get fsm => $_getN(0);
+  @$pb.TagNumber(1)
+  set fsm(CmsState value) => $_setField(1, value);
+  @$pb.TagNumber(1)
+  $core.bool hasFsm() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFsm() => $_clearField(1);
+  @$pb.TagNumber(1)
+  CmsState ensureFsm() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.bool get motorOutputEnabled => $_getBF(1);
+  @$pb.TagNumber(2)
+  set motorOutputEnabled($core.bool value) => $_setBool(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasMotorOutputEnabled() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMotorOutputEnabled() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  ControlOwner get owner => $_getN(2);
+  @$pb.TagNumber(3)
+  set owner(ControlOwner value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasOwner() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearOwner() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.bool get criticalMotorFault => $_getBF(3);
+  @$pb.TagNumber(4)
+  set criticalMotorFault($core.bool value) => $_setBool(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasCriticalMotorFault() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCriticalMotorFault() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.bool get grpcLeaseActive => $_getBF(4);
+  @$pb.TagNumber(5)
+  set grpcLeaseActive($core.bool value) => $_setBool(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasGrpcLeaseActive() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearGrpcLeaseActive() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get leaseRemainingMs => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set leaseRemainingMs($core.int value) => $_setUnsignedInt32(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasLeaseRemainingMs() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLeaseRemainingMs() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $fixnum.Int64 get lastAcceptedSequence => $_getI64(6);
+  @$pb.TagNumber(7)
+  set lastAcceptedSequence($fixnum.Int64 value) => $_setInt64(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasLastAcceptedSequence() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearLastAcceptedSequence() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  CommandRejectReason get lastDecision => $_getN(7);
+  @$pb.TagNumber(8)
+  set lastDecision(CommandRejectReason value) => $_setField(8, value);
+  @$pb.TagNumber(8)
+  $core.bool hasLastDecision() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearLastDecision() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.bool get readyForWalk => $_getBF(8);
+  @$pb.TagNumber(9)
+  set readyForWalk($core.bool value) => $_setBool(8, value);
+  @$pb.TagNumber(9)
+  $core.bool hasReadyForWalk() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearReadyForWalk() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get ownerId => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set ownerId($core.String value) => $_setString(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasOwnerId() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearOwnerId() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $fixnum.Int64 get acceptedCount => $_getI64(10);
+  @$pb.TagNumber(11)
+  set acceptedCount($fixnum.Int64 value) => $_setInt64(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasAcceptedCount() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearAcceptedCount() => $_clearField(11);
+
+  @$pb.TagNumber(12)
+  $fixnum.Int64 get rejectedCount => $_getI64(11);
+  @$pb.TagNumber(12)
+  set rejectedCount($fixnum.Int64 value) => $_setInt64(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasRejectedCount() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearRejectedCount() => $_clearField(12);
 }
 
 enum Command_Data { idle, standUp, sitDown, walk, notSet }

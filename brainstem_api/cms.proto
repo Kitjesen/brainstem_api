@@ -3,7 +3,7 @@
 // RobotControl — brainstem 对外的主控 gRPC 服务。
 // 提供运动控制指令和实时传感器数据流。
 //
-// API Version: 2.0.0 (2026-04-09)
+// API Version: 2.1.0 (2026-07-15)
 //
 // 兼容性承诺 (within 2.x):
 //   - 现有 RPC 的签名和语义不会改变
@@ -49,6 +49,12 @@ service RobotControl {
 
   // 行走：传入方向向量 (x=前后, y=左右, z=旋转)，范围 [-1, 1]。
   rpc Walk(Vector3) returns (google.protobuf.Empty);
+  // Lease-aware walking command. Autonomous clients must use this RPC so a
+  // transport-level OK can be distinguished from an accepted motor command.
+  rpc WalkChecked(WalkRequest) returns (CommandAck);
+  rpc AcquireControl(AcquireControlRequest) returns (ControlLease);
+  rpc RenewControlLease(ControlLeaseRequest) returns (ControlLease);
+  rpc ReleaseControl(ControlLeaseRequest) returns (ControlStatus);
   // 从坐姿过渡到站立姿态。
   rpc StandUp(google.protobuf.Empty) returns (google.protobuf.Empty);
   // 从站立过渡到坐姿。
@@ -70,6 +76,7 @@ service RobotControl {
   // 获取服务启动时间（UTC）。
   rpc GetStartTime(google.protobuf.Empty) returns (google.protobuf.Timestamp);
   rpc GetCmsState(google.protobuf.Empty) returns (CmsState);
+  rpc GetControlStatus(google.protobuf.Empty) returns (ControlStatus);
 
   // 实时推理历史流：每个推理周期（~20ms）发送一帧。
   rpc ListenHistory(google.protobuf.Empty) returns (stream History);
@@ -267,6 +274,69 @@ message CmsState {
   CmsStateKind kind = 1;
   CmsTransitionKind transition = 2;
   string gesture_name = 3;
+}
+
+enum ControlOwner {
+  CONTROL_OWNER_NONE = 0;
+  CONTROL_OWNER_GRPC = 1;
+  CONTROL_OWNER_YUNZHUO = 2;
+}
+
+enum CommandRejectReason {
+  COMMAND_REJECT_REASON_NONE = 0;
+  COMMAND_REJECT_REASON_INVALID_VECTOR = 1;
+  COMMAND_REJECT_REASON_RATE_LIMITED = 2;
+  COMMAND_REJECT_REASON_FSM_NOT_READY = 3;
+  COMMAND_REJECT_REASON_MOTORS_DISABLED = 4;
+  COMMAND_REJECT_REASON_MOTOR_FAULT = 5;
+  COMMAND_REJECT_REASON_CONTROL_BUSY = 6;
+  COMMAND_REJECT_REASON_LEASE_MISSING = 7;
+  COMMAND_REJECT_REASON_LEASE_EXPIRED = 8;
+  COMMAND_REJECT_REASON_PREEMPTED = 9;
+}
+
+message AcquireControlRequest {
+  string client_id = 1;
+}
+
+message ControlLeaseRequest {
+  string token = 1;
+}
+
+message ControlLease {
+  bool accepted = 1;
+  string token = 2;
+  uint32 lease_duration_ms = 3;
+  CommandRejectReason reason = 4;
+  ControlStatus status = 5;
+}
+
+message WalkRequest {
+  string token = 1;
+  uint64 sequence = 2;
+  Vector3 direction = 3;
+}
+
+message CommandAck {
+  bool accepted = 1;
+  CommandRejectReason reason = 2;
+  uint64 sequence = 3;
+  ControlStatus status = 4;
+}
+
+message ControlStatus {
+  CmsState fsm = 1;
+  bool motor_output_enabled = 2;
+  ControlOwner owner = 3;
+  bool critical_motor_fault = 4;
+  bool grpc_lease_active = 5;
+  uint32 lease_remaining_ms = 6;
+  uint64 last_accepted_sequence = 7;
+  CommandRejectReason last_decision = 8;
+  bool ready_for_walk = 9;
+  string owner_id = 10;
+  uint64 accepted_count = 11;
+  uint64 rejected_count = 12;
 }
 
 message Command {

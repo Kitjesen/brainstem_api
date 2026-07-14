@@ -3,7 +3,7 @@
 `brainstem_api` 是 brainstem 控制栈对外的 gRPC / Protobuf 契约包，定义 inovxio
 四足和人形机器人的运动控制、传感器订阅、状态查询等接口。Dart + Python 双语言。
 
-**当前版本**：`2.0.0` (2026-04-09)
+**当前版本**：`2.1.0` (2026-07-15)
 
 前身为 `han_dog_message` v1.0.0。v2.0.0 是破坏性 rename —— 见 `CHANGELOG.md` 和
 `../../shared/proto/PROTO_GOVERNANCE.md`。

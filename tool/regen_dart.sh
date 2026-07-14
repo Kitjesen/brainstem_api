@@ -1,5 +1,5 @@
 #!/bin/bash
-# Regenerate han_dog_message Dart code with protobuf ^6 compatible plugin.
+# Regenerate brainstem_api Dart code with protobuf ^6 compatible plugin.
 #
 # Prerequisites:
 #   dart pub global activate protoc_plugin
@@ -7,7 +7,7 @@
 #   export PATH="$PATH:$HOME/.pub-cache/bin"
 #
 # Usage:
-#   cd han_dog_message
+#   cd brainstem_api
 #   bash tool/regen_dart.sh
 
 set -e
@@ -16,12 +16,12 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 DART_OUT="$ROOT_DIR/dart/lib"
 
-echo "=== Regenerating han_dog_message Dart code (protobuf ^6) ==="
+echo "=== Regenerating brainstem_api Dart code (protobuf ^6) ==="
 echo "Root: $ROOT_DIR"
 echo "Output: $DART_OUT"
 
 # Clean old generated files
-rm -f "$DART_OUT/han_dog_message/"*.pb*.dart
+rm -f "$DART_OUT/brainstem_api/"*.pb*.dart
 rm -f "$DART_OUT/google/protobuf/"*.pb*.dart
 echo "Cleaned old files"
 
@@ -29,9 +29,9 @@ echo "Cleaned old files"
 protoc \
   --dart_out="grpc:$DART_OUT/" \
   -I "$ROOT_DIR" \
-  "$ROOT_DIR/han_dog_message/cms.proto" \
-  "$ROOT_DIR/han_dog_message/common.proto" \
-  "$ROOT_DIR/han_dog_message/mujoco.proto"
+  "$ROOT_DIR/brainstem_api/cms.proto" \
+  "$ROOT_DIR/brainstem_api/common.proto" \
+  "$ROOT_DIR/brainstem_api/mujoco.proto"
 
 echo "Generated proto stubs"
 

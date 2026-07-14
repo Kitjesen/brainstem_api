@@ -14,6 +14,12 @@ See `../../shared/proto/PROTO_GOVERNANCE.md` for the full governance rules.
 
 ---
 
+## [2.1.0] — 2026-07-15
+
+Adds an explicit autonomous-motion lease boundary. `WalkChecked` returns a
+command ACK, while acquire/renew/release/status RPCs expose motor enable,
+critical fault, FSM, owner, and lease readiness without changing legacy RPCs.
+
 ## [2.0.0] — 2026-04-09
 
 First release under the `brainstem_api` name. Breaking rename from the legacy

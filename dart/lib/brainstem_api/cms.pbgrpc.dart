@@ -70,6 +70,36 @@ class RobotControlClient extends $grpc.Client {
     return $createUnaryCall(_$walk, request, options: options);
   }
 
+  /// Lease-aware walking command. Autonomous clients must use this RPC so a
+  /// transport-level OK can be distinguished from an accepted motor command.
+  $grpc.ResponseFuture<$2.CommandAck> walkChecked(
+    $2.WalkRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$walkChecked, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.ControlLease> acquireControl(
+    $2.AcquireControlRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$acquireControl, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.ControlLease> renewControlLease(
+    $2.ControlLeaseRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$renewControlLease, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.ControlStatus> releaseControl(
+    $2.ControlLeaseRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$releaseControl, request, options: options);
+  }
+
   /// 从坐姿过渡到站立姿态。
   $grpc.ResponseFuture<$0.Empty> standUp(
     $0.Empty request, {
@@ -131,6 +161,13 @@ class RobotControlClient extends $grpc.Client {
     $grpc.CallOptions? options,
   }) {
     return $createUnaryCall(_$getCmsState, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.ControlStatus> getControlStatus(
+    $0.Empty request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getControlStatus, request, options: options);
   }
 
   /// 实时推理历史流：每个推理周期（~20ms）发送一帧。
@@ -258,6 +295,26 @@ class RobotControlClient extends $grpc.Client {
       '/brainstem.api.v1.RobotControl/Walk',
       ($1.Vector3 value) => value.writeToBuffer(),
       $0.Empty.fromBuffer);
+  static final _$walkChecked =
+      $grpc.ClientMethod<$2.WalkRequest, $2.CommandAck>(
+          '/brainstem.api.v1.RobotControl/WalkChecked',
+          ($2.WalkRequest value) => value.writeToBuffer(),
+          $2.CommandAck.fromBuffer);
+  static final _$acquireControl =
+      $grpc.ClientMethod<$2.AcquireControlRequest, $2.ControlLease>(
+          '/brainstem.api.v1.RobotControl/AcquireControl',
+          ($2.AcquireControlRequest value) => value.writeToBuffer(),
+          $2.ControlLease.fromBuffer);
+  static final _$renewControlLease =
+      $grpc.ClientMethod<$2.ControlLeaseRequest, $2.ControlLease>(
+          '/brainstem.api.v1.RobotControl/RenewControlLease',
+          ($2.ControlLeaseRequest value) => value.writeToBuffer(),
+          $2.ControlLease.fromBuffer);
+  static final _$releaseControl =
+      $grpc.ClientMethod<$2.ControlLeaseRequest, $2.ControlStatus>(
+          '/brainstem.api.v1.RobotControl/ReleaseControl',
+          ($2.ControlLeaseRequest value) => value.writeToBuffer(),
+          $2.ControlStatus.fromBuffer);
   static final _$standUp = $grpc.ClientMethod<$0.Empty, $0.Empty>(
       '/brainstem.api.v1.RobotControl/StandUp',
       ($0.Empty value) => value.writeToBuffer(),
@@ -292,6 +349,11 @@ class RobotControlClient extends $grpc.Client {
       '/brainstem.api.v1.RobotControl/GetCmsState',
       ($0.Empty value) => value.writeToBuffer(),
       $2.CmsState.fromBuffer);
+  static final _$getControlStatus =
+      $grpc.ClientMethod<$0.Empty, $2.ControlStatus>(
+          '/brainstem.api.v1.RobotControl/GetControlStatus',
+          ($0.Empty value) => value.writeToBuffer(),
+          $2.ControlStatus.fromBuffer);
   static final _$listenHistory = $grpc.ClientMethod<$0.Empty, $2.History>(
       '/brainstem.api.v1.RobotControl/ListenHistory',
       ($0.Empty value) => value.writeToBuffer(),
@@ -375,6 +437,37 @@ abstract class RobotControlServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.Vector3.fromBuffer(value),
         ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.WalkRequest, $2.CommandAck>(
+        'WalkChecked',
+        walkChecked_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.WalkRequest.fromBuffer(value),
+        ($2.CommandAck value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.AcquireControlRequest, $2.ControlLease>(
+        'AcquireControl',
+        acquireControl_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.AcquireControlRequest.fromBuffer(value),
+        ($2.ControlLease value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.ControlLeaseRequest, $2.ControlLease>(
+        'RenewControlLease',
+        renewControlLease_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.ControlLeaseRequest.fromBuffer(value),
+        ($2.ControlLease value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.ControlLeaseRequest, $2.ControlStatus>(
+        'ReleaseControl',
+        releaseControl_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $2.ControlLeaseRequest.fromBuffer(value),
+        ($2.ControlStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.Empty, $0.Empty>(
         'StandUp',
         standUp_Pre,
@@ -431,6 +524,13 @@ abstract class RobotControlServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
         ($2.CmsState value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Empty, $2.ControlStatus>(
+        'GetControlStatus',
+        getControlStatus_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
+        ($2.ControlStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.Empty, $2.History>(
         'ListenHistory',
         listenHistory_Pre,
@@ -545,6 +645,38 @@ abstract class RobotControlServiceBase extends $grpc.Service {
 
   $async.Future<$0.Empty> walk($grpc.ServiceCall call, $1.Vector3 request);
 
+  $async.Future<$2.CommandAck> walkChecked_Pre(
+      $grpc.ServiceCall $call, $async.Future<$2.WalkRequest> $request) async {
+    return walkChecked($call, await $request);
+  }
+
+  $async.Future<$2.CommandAck> walkChecked(
+      $grpc.ServiceCall call, $2.WalkRequest request);
+
+  $async.Future<$2.ControlLease> acquireControl_Pre($grpc.ServiceCall $call,
+      $async.Future<$2.AcquireControlRequest> $request) async {
+    return acquireControl($call, await $request);
+  }
+
+  $async.Future<$2.ControlLease> acquireControl(
+      $grpc.ServiceCall call, $2.AcquireControlRequest request);
+
+  $async.Future<$2.ControlLease> renewControlLease_Pre($grpc.ServiceCall $call,
+      $async.Future<$2.ControlLeaseRequest> $request) async {
+    return renewControlLease($call, await $request);
+  }
+
+  $async.Future<$2.ControlLease> renewControlLease(
+      $grpc.ServiceCall call, $2.ControlLeaseRequest request);
+
+  $async.Future<$2.ControlStatus> releaseControl_Pre($grpc.ServiceCall $call,
+      $async.Future<$2.ControlLeaseRequest> $request) async {
+    return releaseControl($call, await $request);
+  }
+
+  $async.Future<$2.ControlStatus> releaseControl(
+      $grpc.ServiceCall call, $2.ControlLeaseRequest request);
+
   $async.Future<$0.Empty> standUp_Pre(
       $grpc.ServiceCall $call, $async.Future<$0.Empty> $request) async {
     return standUp($call, await $request);
@@ -603,6 +735,14 @@ abstract class RobotControlServiceBase extends $grpc.Service {
   }
 
   $async.Future<$2.CmsState> getCmsState(
+      $grpc.ServiceCall call, $0.Empty request);
+
+  $async.Future<$2.ControlStatus> getControlStatus_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.Empty> $request) async {
+    return getControlStatus($call, await $request);
+  }
+
+  $async.Future<$2.ControlStatus> getControlStatus(
       $grpc.ServiceCall call, $0.Empty request);
 
   $async.Stream<$2.History> listenHistory_Pre(

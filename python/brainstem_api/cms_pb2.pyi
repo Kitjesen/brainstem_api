@@ -28,6 +28,25 @@ class CmsTransitionKind(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     CMS_TRANSITION_KIND_SIT_DOWN: _ClassVar[CmsTransitionKind]
     CMS_TRANSITION_KIND_GESTURE: _ClassVar[CmsTransitionKind]
 
+class ControlOwner(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    CONTROL_OWNER_NONE: _ClassVar[ControlOwner]
+    CONTROL_OWNER_GRPC: _ClassVar[ControlOwner]
+    CONTROL_OWNER_YUNZHUO: _ClassVar[ControlOwner]
+
+class CommandRejectReason(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    COMMAND_REJECT_REASON_NONE: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_INVALID_VECTOR: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_RATE_LIMITED: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_FSM_NOT_READY: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_MOTORS_DISABLED: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_MOTOR_FAULT: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_CONTROL_BUSY: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_LEASE_MISSING: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_LEASE_EXPIRED: _ClassVar[CommandRejectReason]
+    COMMAND_REJECT_REASON_PREEMPTED: _ClassVar[CommandRejectReason]
+
 class SpeedMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     SPEED_MODE_NORMAL: _ClassVar[SpeedMode]
@@ -41,6 +60,19 @@ CMS_TRANSITION_KIND_NONE: CmsTransitionKind
 CMS_TRANSITION_KIND_STAND_UP: CmsTransitionKind
 CMS_TRANSITION_KIND_SIT_DOWN: CmsTransitionKind
 CMS_TRANSITION_KIND_GESTURE: CmsTransitionKind
+CONTROL_OWNER_NONE: ControlOwner
+CONTROL_OWNER_GRPC: ControlOwner
+CONTROL_OWNER_YUNZHUO: ControlOwner
+COMMAND_REJECT_REASON_NONE: CommandRejectReason
+COMMAND_REJECT_REASON_INVALID_VECTOR: CommandRejectReason
+COMMAND_REJECT_REASON_RATE_LIMITED: CommandRejectReason
+COMMAND_REJECT_REASON_FSM_NOT_READY: CommandRejectReason
+COMMAND_REJECT_REASON_MOTORS_DISABLED: CommandRejectReason
+COMMAND_REJECT_REASON_MOTOR_FAULT: CommandRejectReason
+COMMAND_REJECT_REASON_CONTROL_BUSY: CommandRejectReason
+COMMAND_REJECT_REASON_LEASE_MISSING: CommandRejectReason
+COMMAND_REJECT_REASON_LEASE_EXPIRED: CommandRejectReason
+COMMAND_REJECT_REASON_PREEMPTED: CommandRejectReason
 SPEED_MODE_NORMAL: SpeedMode
 SPEED_MODE_HIGH: SpeedMode
 
@@ -189,6 +221,82 @@ class CmsState(_message.Message):
     transition: CmsTransitionKind
     gesture_name: str
     def __init__(self, kind: _Optional[_Union[CmsStateKind, str]] = ..., transition: _Optional[_Union[CmsTransitionKind, str]] = ..., gesture_name: _Optional[str] = ...) -> None: ...
+
+class AcquireControlRequest(_message.Message):
+    __slots__ = ("client_id",)
+    CLIENT_ID_FIELD_NUMBER: _ClassVar[int]
+    client_id: str
+    def __init__(self, client_id: _Optional[str] = ...) -> None: ...
+
+class ControlLeaseRequest(_message.Message):
+    __slots__ = ("token",)
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    token: str
+    def __init__(self, token: _Optional[str] = ...) -> None: ...
+
+class ControlLease(_message.Message):
+    __slots__ = ("accepted", "token", "lease_duration_ms", "reason", "status")
+    ACCEPTED_FIELD_NUMBER: _ClassVar[int]
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    LEASE_DURATION_MS_FIELD_NUMBER: _ClassVar[int]
+    REASON_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    accepted: bool
+    token: str
+    lease_duration_ms: int
+    reason: CommandRejectReason
+    status: ControlStatus
+    def __init__(self, accepted: bool = ..., token: _Optional[str] = ..., lease_duration_ms: _Optional[int] = ..., reason: _Optional[_Union[CommandRejectReason, str]] = ..., status: _Optional[_Union[ControlStatus, _Mapping]] = ...) -> None: ...
+
+class WalkRequest(_message.Message):
+    __slots__ = ("token", "sequence", "direction")
+    TOKEN_FIELD_NUMBER: _ClassVar[int]
+    SEQUENCE_FIELD_NUMBER: _ClassVar[int]
+    DIRECTION_FIELD_NUMBER: _ClassVar[int]
+    token: str
+    sequence: int
+    direction: _common_pb2.Vector3
+    def __init__(self, token: _Optional[str] = ..., sequence: _Optional[int] = ..., direction: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ...) -> None: ...
+
+class CommandAck(_message.Message):
+    __slots__ = ("accepted", "reason", "sequence", "status")
+    ACCEPTED_FIELD_NUMBER: _ClassVar[int]
+    REASON_FIELD_NUMBER: _ClassVar[int]
+    SEQUENCE_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    accepted: bool
+    reason: CommandRejectReason
+    sequence: int
+    status: ControlStatus
+    def __init__(self, accepted: bool = ..., reason: _Optional[_Union[CommandRejectReason, str]] = ..., sequence: _Optional[int] = ..., status: _Optional[_Union[ControlStatus, _Mapping]] = ...) -> None: ...
+
+class ControlStatus(_message.Message):
+    __slots__ = ("fsm", "motor_output_enabled", "owner", "critical_motor_fault", "grpc_lease_active", "lease_remaining_ms", "last_accepted_sequence", "last_decision", "ready_for_walk", "owner_id", "accepted_count", "rejected_count")
+    FSM_FIELD_NUMBER: _ClassVar[int]
+    MOTOR_OUTPUT_ENABLED_FIELD_NUMBER: _ClassVar[int]
+    OWNER_FIELD_NUMBER: _ClassVar[int]
+    CRITICAL_MOTOR_FAULT_FIELD_NUMBER: _ClassVar[int]
+    GRPC_LEASE_ACTIVE_FIELD_NUMBER: _ClassVar[int]
+    LEASE_REMAINING_MS_FIELD_NUMBER: _ClassVar[int]
+    LAST_ACCEPTED_SEQUENCE_FIELD_NUMBER: _ClassVar[int]
+    LAST_DECISION_FIELD_NUMBER: _ClassVar[int]
+    READY_FOR_WALK_FIELD_NUMBER: _ClassVar[int]
+    OWNER_ID_FIELD_NUMBER: _ClassVar[int]
+    ACCEPTED_COUNT_FIELD_NUMBER: _ClassVar[int]
+    REJECTED_COUNT_FIELD_NUMBER: _ClassVar[int]
+    fsm: CmsState
+    motor_output_enabled: bool
+    owner: ControlOwner
+    critical_motor_fault: bool
+    grpc_lease_active: bool
+    lease_remaining_ms: int
+    last_accepted_sequence: int
+    last_decision: CommandRejectReason
+    ready_for_walk: bool
+    owner_id: str
+    accepted_count: int
+    rejected_count: int
+    def __init__(self, fsm: _Optional[_Union[CmsState, _Mapping]] = ..., motor_output_enabled: bool = ..., owner: _Optional[_Union[ControlOwner, str]] = ..., critical_motor_fault: bool = ..., grpc_lease_active: bool = ..., lease_remaining_ms: _Optional[int] = ..., last_accepted_sequence: _Optional[int] = ..., last_decision: _Optional[_Union[CommandRejectReason, str]] = ..., ready_for_walk: bool = ..., owner_id: _Optional[str] = ..., accepted_count: _Optional[int] = ..., rejected_count: _Optional[int] = ...) -> None: ...
 
 class Command(_message.Message):
     __slots__ = ("idle", "stand_up", "sit_down", "walk")

@@ -71,6 +71,81 @@ class CmsTransitionKind extends $pb.ProtobufEnum {
   const CmsTransitionKind._(super.value, super.name);
 }
 
+class ControlOwner extends $pb.ProtobufEnum {
+  static const ControlOwner CONTROL_OWNER_NONE =
+      ControlOwner._(0, _omitEnumNames ? '' : 'CONTROL_OWNER_NONE');
+  static const ControlOwner CONTROL_OWNER_GRPC =
+      ControlOwner._(1, _omitEnumNames ? '' : 'CONTROL_OWNER_GRPC');
+  static const ControlOwner CONTROL_OWNER_YUNZHUO =
+      ControlOwner._(2, _omitEnumNames ? '' : 'CONTROL_OWNER_YUNZHUO');
+
+  static const $core.List<ControlOwner> values = <ControlOwner>[
+    CONTROL_OWNER_NONE,
+    CONTROL_OWNER_GRPC,
+    CONTROL_OWNER_YUNZHUO,
+  ];
+
+  static final $core.List<ControlOwner?> _byValue =
+      $pb.ProtobufEnum.$_initByValueList(values, 2);
+  static ControlOwner? valueOf($core.int value) =>
+      value < 0 || value >= _byValue.length ? null : _byValue[value];
+
+  const ControlOwner._(super.value, super.name);
+}
+
+class CommandRejectReason extends $pb.ProtobufEnum {
+  static const CommandRejectReason COMMAND_REJECT_REASON_NONE =
+      CommandRejectReason._(
+          0, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_NONE');
+  static const CommandRejectReason COMMAND_REJECT_REASON_INVALID_VECTOR =
+      CommandRejectReason._(
+          1, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_INVALID_VECTOR');
+  static const CommandRejectReason COMMAND_REJECT_REASON_RATE_LIMITED =
+      CommandRejectReason._(
+          2, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_RATE_LIMITED');
+  static const CommandRejectReason COMMAND_REJECT_REASON_FSM_NOT_READY =
+      CommandRejectReason._(
+          3, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_FSM_NOT_READY');
+  static const CommandRejectReason COMMAND_REJECT_REASON_MOTORS_DISABLED =
+      CommandRejectReason._(
+          4, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_MOTORS_DISABLED');
+  static const CommandRejectReason COMMAND_REJECT_REASON_MOTOR_FAULT =
+      CommandRejectReason._(
+          5, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_MOTOR_FAULT');
+  static const CommandRejectReason COMMAND_REJECT_REASON_CONTROL_BUSY =
+      CommandRejectReason._(
+          6, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_CONTROL_BUSY');
+  static const CommandRejectReason COMMAND_REJECT_REASON_LEASE_MISSING =
+      CommandRejectReason._(
+          7, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_LEASE_MISSING');
+  static const CommandRejectReason COMMAND_REJECT_REASON_LEASE_EXPIRED =
+      CommandRejectReason._(
+          8, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_LEASE_EXPIRED');
+  static const CommandRejectReason COMMAND_REJECT_REASON_PREEMPTED =
+      CommandRejectReason._(
+          9, _omitEnumNames ? '' : 'COMMAND_REJECT_REASON_PREEMPTED');
+
+  static const $core.List<CommandRejectReason> values = <CommandRejectReason>[
+    COMMAND_REJECT_REASON_NONE,
+    COMMAND_REJECT_REASON_INVALID_VECTOR,
+    COMMAND_REJECT_REASON_RATE_LIMITED,
+    COMMAND_REJECT_REASON_FSM_NOT_READY,
+    COMMAND_REJECT_REASON_MOTORS_DISABLED,
+    COMMAND_REJECT_REASON_MOTOR_FAULT,
+    COMMAND_REJECT_REASON_CONTROL_BUSY,
+    COMMAND_REJECT_REASON_LEASE_MISSING,
+    COMMAND_REJECT_REASON_LEASE_EXPIRED,
+    COMMAND_REJECT_REASON_PREEMPTED,
+  ];
+
+  static final $core.List<CommandRejectReason?> _byValue =
+      $pb.ProtobufEnum.$_initByValueList(values, 9);
+  static CommandRejectReason? valueOf($core.int value) =>
+      value < 0 || value >= _byValue.length ? null : _byValue[value];
+
+  const CommandRejectReason._(super.value, super.name);
+}
+
 class SpeedMode extends $pb.ProtobufEnum {
   /// 标准模式（默认）。
   static const SpeedMode SPEED_MODE_NORMAL =

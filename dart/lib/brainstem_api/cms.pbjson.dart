@@ -50,6 +50,49 @@ final $typed_data.Uint8List cmsTransitionKindDescriptor = $convert.base64Decode(
     'NfVFJBTlNJVElPTl9LSU5EX1NUQU5EX1VQEAESIAocQ01TX1RSQU5TSVRJT05fS0lORF9TSVRf'
     'RE9XThACEh8KG0NNU19UUkFOU0lUSU9OX0tJTkRfR0VTVFVSRRAD');
 
+@$core.Deprecated('Use controlOwnerDescriptor instead')
+const ControlOwner$json = {
+  '1': 'ControlOwner',
+  '2': [
+    {'1': 'CONTROL_OWNER_NONE', '2': 0},
+    {'1': 'CONTROL_OWNER_GRPC', '2': 1},
+    {'1': 'CONTROL_OWNER_YUNZHUO', '2': 2},
+  ],
+};
+
+/// Descriptor for `ControlOwner`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List controlOwnerDescriptor = $convert.base64Decode(
+    'CgxDb250cm9sT3duZXISFgoSQ09OVFJPTF9PV05FUl9OT05FEAASFgoSQ09OVFJPTF9PV05FUl'
+    '9HUlBDEAESGQoVQ09OVFJPTF9PV05FUl9ZVU5aSFVPEAI=');
+
+@$core.Deprecated('Use commandRejectReasonDescriptor instead')
+const CommandRejectReason$json = {
+  '1': 'CommandRejectReason',
+  '2': [
+    {'1': 'COMMAND_REJECT_REASON_NONE', '2': 0},
+    {'1': 'COMMAND_REJECT_REASON_INVALID_VECTOR', '2': 1},
+    {'1': 'COMMAND_REJECT_REASON_RATE_LIMITED', '2': 2},
+    {'1': 'COMMAND_REJECT_REASON_FSM_NOT_READY', '2': 3},
+    {'1': 'COMMAND_REJECT_REASON_MOTORS_DISABLED', '2': 4},
+    {'1': 'COMMAND_REJECT_REASON_MOTOR_FAULT', '2': 5},
+    {'1': 'COMMAND_REJECT_REASON_CONTROL_BUSY', '2': 6},
+    {'1': 'COMMAND_REJECT_REASON_LEASE_MISSING', '2': 7},
+    {'1': 'COMMAND_REJECT_REASON_LEASE_EXPIRED', '2': 8},
+    {'1': 'COMMAND_REJECT_REASON_PREEMPTED', '2': 9},
+  ],
+};
+
+/// Descriptor for `CommandRejectReason`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List commandRejectReasonDescriptor = $convert.base64Decode(
+    'ChNDb21tYW5kUmVqZWN0UmVhc29uEh4KGkNPTU1BTkRfUkVKRUNUX1JFQVNPTl9OT05FEAASKA'
+    'okQ09NTUFORF9SRUpFQ1RfUkVBU09OX0lOVkFMSURfVkVDVE9SEAESJgoiQ09NTUFORF9SRUpF'
+    'Q1RfUkVBU09OX1JBVEVfTElNSVRFRBACEicKI0NPTU1BTkRfUkVKRUNUX1JFQVNPTl9GU01fTk'
+    '9UX1JFQURZEAMSKQolQ09NTUFORF9SRUpFQ1RfUkVBU09OX01PVE9SU19ESVNBQkxFRBAEEiUK'
+    'IUNPTU1BTkRfUkVKRUNUX1JFQVNPTl9NT1RPUl9GQVVMVBAFEiYKIkNPTU1BTkRfUkVKRUNUX1'
+    'JFQVNPTl9DT05UUk9MX0JVU1kQBhInCiNDT01NQU5EX1JFSkVDVF9SRUFTT05fTEVBU0VfTUlT'
+    'U0lORxAHEicKI0NPTU1BTkRfUkVKRUNUX1JFQVNPTl9MRUFTRV9FWFBJUkVEEAgSIwofQ09NTU'
+    'FORF9SRUpFQ1RfUkVBU09OX1BSRUVNUFRFRBAJ');
+
 @$core.Deprecated('Use speedModeDescriptor instead')
 const SpeedMode$json = {
   '1': 'SpeedMode',
@@ -466,6 +509,204 @@ final $typed_data.Uint8List cmsStateDescriptor = $convert.base64Decode(
     'RSBGtpbmQSQwoKdHJhbnNpdGlvbhgCIAEoDjIjLmJyYWluc3RlbS5hcGkudjEuQ21zVHJhbnNp'
     'dGlvbktpbmRSCnRyYW5zaXRpb24SIQoMZ2VzdHVyZV9uYW1lGAMgASgJUgtnZXN0dXJlTmFtZQ'
     '==');
+
+@$core.Deprecated('Use acquireControlRequestDescriptor instead')
+const AcquireControlRequest$json = {
+  '1': 'AcquireControlRequest',
+  '2': [
+    {'1': 'client_id', '3': 1, '4': 1, '5': 9, '10': 'clientId'},
+  ],
+};
+
+/// Descriptor for `AcquireControlRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List acquireControlRequestDescriptor = $convert.base64Decode(
+    'ChVBY3F1aXJlQ29udHJvbFJlcXVlc3QSGwoJY2xpZW50X2lkGAEgASgJUghjbGllbnRJZA==');
+
+@$core.Deprecated('Use controlLeaseRequestDescriptor instead')
+const ControlLeaseRequest$json = {
+  '1': 'ControlLeaseRequest',
+  '2': [
+    {'1': 'token', '3': 1, '4': 1, '5': 9, '10': 'token'},
+  ],
+};
+
+/// Descriptor for `ControlLeaseRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List controlLeaseRequestDescriptor =
+    $convert.base64Decode(
+        'ChNDb250cm9sTGVhc2VSZXF1ZXN0EhQKBXRva2VuGAEgASgJUgV0b2tlbg==');
+
+@$core.Deprecated('Use controlLeaseDescriptor instead')
+const ControlLease$json = {
+  '1': 'ControlLease',
+  '2': [
+    {'1': 'accepted', '3': 1, '4': 1, '5': 8, '10': 'accepted'},
+    {'1': 'token', '3': 2, '4': 1, '5': 9, '10': 'token'},
+    {
+      '1': 'lease_duration_ms',
+      '3': 3,
+      '4': 1,
+      '5': 13,
+      '10': 'leaseDurationMs'
+    },
+    {
+      '1': 'reason',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.brainstem.api.v1.CommandRejectReason',
+      '10': 'reason'
+    },
+    {
+      '1': 'status',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.brainstem.api.v1.ControlStatus',
+      '10': 'status'
+    },
+  ],
+};
+
+/// Descriptor for `ControlLease`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List controlLeaseDescriptor = $convert.base64Decode(
+    'CgxDb250cm9sTGVhc2USGgoIYWNjZXB0ZWQYASABKAhSCGFjY2VwdGVkEhQKBXRva2VuGAIgAS'
+    'gJUgV0b2tlbhIqChFsZWFzZV9kdXJhdGlvbl9tcxgDIAEoDVIPbGVhc2VEdXJhdGlvbk1zEj0K'
+    'BnJlYXNvbhgEIAEoDjIlLmJyYWluc3RlbS5hcGkudjEuQ29tbWFuZFJlamVjdFJlYXNvblIGcm'
+    'Vhc29uEjcKBnN0YXR1cxgFIAEoCzIfLmJyYWluc3RlbS5hcGkudjEuQ29udHJvbFN0YXR1c1IG'
+    'c3RhdHVz');
+
+@$core.Deprecated('Use walkRequestDescriptor instead')
+const WalkRequest$json = {
+  '1': 'WalkRequest',
+  '2': [
+    {'1': 'token', '3': 1, '4': 1, '5': 9, '10': 'token'},
+    {'1': 'sequence', '3': 2, '4': 1, '5': 4, '10': 'sequence'},
+    {
+      '1': 'direction',
+      '3': 3,
+      '4': 1,
+      '5': 11,
+      '6': '.brainstem.api.v1.Vector3',
+      '10': 'direction'
+    },
+  ],
+};
+
+/// Descriptor for `WalkRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List walkRequestDescriptor = $convert.base64Decode(
+    'CgtXYWxrUmVxdWVzdBIUCgV0b2tlbhgBIAEoCVIFdG9rZW4SGgoIc2VxdWVuY2UYAiABKARSCH'
+    'NlcXVlbmNlEjcKCWRpcmVjdGlvbhgDIAEoCzIZLmJyYWluc3RlbS5hcGkudjEuVmVjdG9yM1IJ'
+    'ZGlyZWN0aW9u');
+
+@$core.Deprecated('Use commandAckDescriptor instead')
+const CommandAck$json = {
+  '1': 'CommandAck',
+  '2': [
+    {'1': 'accepted', '3': 1, '4': 1, '5': 8, '10': 'accepted'},
+    {
+      '1': 'reason',
+      '3': 2,
+      '4': 1,
+      '5': 14,
+      '6': '.brainstem.api.v1.CommandRejectReason',
+      '10': 'reason'
+    },
+    {'1': 'sequence', '3': 3, '4': 1, '5': 4, '10': 'sequence'},
+    {
+      '1': 'status',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.brainstem.api.v1.ControlStatus',
+      '10': 'status'
+    },
+  ],
+};
+
+/// Descriptor for `CommandAck`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List commandAckDescriptor = $convert.base64Decode(
+    'CgpDb21tYW5kQWNrEhoKCGFjY2VwdGVkGAEgASgIUghhY2NlcHRlZBI9CgZyZWFzb24YAiABKA'
+    '4yJS5icmFpbnN0ZW0uYXBpLnYxLkNvbW1hbmRSZWplY3RSZWFzb25SBnJlYXNvbhIaCghzZXF1'
+    'ZW5jZRgDIAEoBFIIc2VxdWVuY2USNwoGc3RhdHVzGAQgASgLMh8uYnJhaW5zdGVtLmFwaS52MS'
+    '5Db250cm9sU3RhdHVzUgZzdGF0dXM=');
+
+@$core.Deprecated('Use controlStatusDescriptor instead')
+const ControlStatus$json = {
+  '1': 'ControlStatus',
+  '2': [
+    {
+      '1': 'fsm',
+      '3': 1,
+      '4': 1,
+      '5': 11,
+      '6': '.brainstem.api.v1.CmsState',
+      '10': 'fsm'
+    },
+    {
+      '1': 'motor_output_enabled',
+      '3': 2,
+      '4': 1,
+      '5': 8,
+      '10': 'motorOutputEnabled'
+    },
+    {
+      '1': 'owner',
+      '3': 3,
+      '4': 1,
+      '5': 14,
+      '6': '.brainstem.api.v1.ControlOwner',
+      '10': 'owner'
+    },
+    {
+      '1': 'critical_motor_fault',
+      '3': 4,
+      '4': 1,
+      '5': 8,
+      '10': 'criticalMotorFault'
+    },
+    {'1': 'grpc_lease_active', '3': 5, '4': 1, '5': 8, '10': 'grpcLeaseActive'},
+    {
+      '1': 'lease_remaining_ms',
+      '3': 6,
+      '4': 1,
+      '5': 13,
+      '10': 'leaseRemainingMs'
+    },
+    {
+      '1': 'last_accepted_sequence',
+      '3': 7,
+      '4': 1,
+      '5': 4,
+      '10': 'lastAcceptedSequence'
+    },
+    {
+      '1': 'last_decision',
+      '3': 8,
+      '4': 1,
+      '5': 14,
+      '6': '.brainstem.api.v1.CommandRejectReason',
+      '10': 'lastDecision'
+    },
+    {'1': 'ready_for_walk', '3': 9, '4': 1, '5': 8, '10': 'readyForWalk'},
+    {'1': 'owner_id', '3': 10, '4': 1, '5': 9, '10': 'ownerId'},
+    {'1': 'accepted_count', '3': 11, '4': 1, '5': 4, '10': 'acceptedCount'},
+    {'1': 'rejected_count', '3': 12, '4': 1, '5': 4, '10': 'rejectedCount'},
+  ],
+};
+
+/// Descriptor for `ControlStatus`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List controlStatusDescriptor = $convert.base64Decode(
+    'Cg1Db250cm9sU3RhdHVzEiwKA2ZzbRgBIAEoCzIaLmJyYWluc3RlbS5hcGkudjEuQ21zU3RhdG'
+    'VSA2ZzbRIwChRtb3Rvcl9vdXRwdXRfZW5hYmxlZBgCIAEoCFISbW90b3JPdXRwdXRFbmFibGVk'
+    'EjQKBW93bmVyGAMgASgOMh4uYnJhaW5zdGVtLmFwaS52MS5Db250cm9sT3duZXJSBW93bmVyEj'
+    'AKFGNyaXRpY2FsX21vdG9yX2ZhdWx0GAQgASgIUhJjcml0aWNhbE1vdG9yRmF1bHQSKgoRZ3Jw'
+    'Y19sZWFzZV9hY3RpdmUYBSABKAhSD2dycGNMZWFzZUFjdGl2ZRIsChJsZWFzZV9yZW1haW5pbm'
+    'dfbXMYBiABKA1SEGxlYXNlUmVtYWluaW5nTXMSNAoWbGFzdF9hY2NlcHRlZF9zZXF1ZW5jZRgH'
+    'IAEoBFIUbGFzdEFjY2VwdGVkU2VxdWVuY2USSgoNbGFzdF9kZWNpc2lvbhgIIAEoDjIlLmJyYW'
+    'luc3RlbS5hcGkudjEuQ29tbWFuZFJlamVjdFJlYXNvblIMbGFzdERlY2lzaW9uEiQKDnJlYWR5'
+    'X2Zvcl93YWxrGAkgASgIUgxyZWFkeUZvcldhbGsSGQoIb3duZXJfaWQYCiABKAlSB293bmVySW'
+    'QSJQoOYWNjZXB0ZWRfY291bnQYCyABKARSDWFjY2VwdGVkQ291bnQSJQoOcmVqZWN0ZWRfY291'
+    'bnQYDCABKARSDXJlamVjdGVkQ291bnQ=');
 
 @$core.Deprecated('Use commandDescriptor instead')
 const Command$json = {

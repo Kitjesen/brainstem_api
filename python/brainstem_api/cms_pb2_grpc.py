@@ -63,6 +63,26 @@ class RobotControlStub(object):
                 request_serializer=brainstem__api_dot_common__pb2.Vector3.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
+        self.WalkChecked = channel.unary_unary(
+                '/brainstem.api.v1.RobotControl/WalkChecked',
+                request_serializer=brainstem__api_dot_cms__pb2.WalkRequest.SerializeToString,
+                response_deserializer=brainstem__api_dot_cms__pb2.CommandAck.FromString,
+                _registered_method=True)
+        self.AcquireControl = channel.unary_unary(
+                '/brainstem.api.v1.RobotControl/AcquireControl',
+                request_serializer=brainstem__api_dot_cms__pb2.AcquireControlRequest.SerializeToString,
+                response_deserializer=brainstem__api_dot_cms__pb2.ControlLease.FromString,
+                _registered_method=True)
+        self.RenewControlLease = channel.unary_unary(
+                '/brainstem.api.v1.RobotControl/RenewControlLease',
+                request_serializer=brainstem__api_dot_cms__pb2.ControlLeaseRequest.SerializeToString,
+                response_deserializer=brainstem__api_dot_cms__pb2.ControlLease.FromString,
+                _registered_method=True)
+        self.ReleaseControl = channel.unary_unary(
+                '/brainstem.api.v1.RobotControl/ReleaseControl',
+                request_serializer=brainstem__api_dot_cms__pb2.ControlLeaseRequest.SerializeToString,
+                response_deserializer=brainstem__api_dot_cms__pb2.ControlStatus.FromString,
+                _registered_method=True)
         self.StandUp = channel.unary_unary(
                 '/brainstem.api.v1.RobotControl/StandUp',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -102,6 +122,11 @@ class RobotControlStub(object):
                 '/brainstem.api.v1.RobotControl/GetCmsState',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=brainstem__api_dot_cms__pb2.CmsState.FromString,
+                _registered_method=True)
+        self.GetControlStatus = channel.unary_unary(
+                '/brainstem.api.v1.RobotControl/GetControlStatus',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=brainstem__api_dot_cms__pb2.ControlStatus.FromString,
                 _registered_method=True)
         self.ListenHistory = channel.unary_stream(
                 '/brainstem.api.v1.RobotControl/ListenHistory',
@@ -207,6 +232,32 @@ class RobotControlServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def WalkChecked(self, request, context):
+        """Lease-aware walking command. Autonomous clients must use this RPC so a
+        transport-level OK can be distinguished from an accepted motor command.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AcquireControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RenewControlLease(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReleaseControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StandUp(self, request, context):
         """从坐姿过渡到站立姿态。
         """
@@ -261,6 +312,12 @@ class RobotControlServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetCmsState(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetControlStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -380,6 +437,26 @@ def add_RobotControlServicer_to_server(servicer, server):
                     request_deserializer=brainstem__api_dot_common__pb2.Vector3.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
+            'WalkChecked': grpc.unary_unary_rpc_method_handler(
+                    servicer.WalkChecked,
+                    request_deserializer=brainstem__api_dot_cms__pb2.WalkRequest.FromString,
+                    response_serializer=brainstem__api_dot_cms__pb2.CommandAck.SerializeToString,
+            ),
+            'AcquireControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.AcquireControl,
+                    request_deserializer=brainstem__api_dot_cms__pb2.AcquireControlRequest.FromString,
+                    response_serializer=brainstem__api_dot_cms__pb2.ControlLease.SerializeToString,
+            ),
+            'RenewControlLease': grpc.unary_unary_rpc_method_handler(
+                    servicer.RenewControlLease,
+                    request_deserializer=brainstem__api_dot_cms__pb2.ControlLeaseRequest.FromString,
+                    response_serializer=brainstem__api_dot_cms__pb2.ControlLease.SerializeToString,
+            ),
+            'ReleaseControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReleaseControl,
+                    request_deserializer=brainstem__api_dot_cms__pb2.ControlLeaseRequest.FromString,
+                    response_serializer=brainstem__api_dot_cms__pb2.ControlStatus.SerializeToString,
+            ),
             'StandUp': grpc.unary_unary_rpc_method_handler(
                     servicer.StandUp,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
@@ -419,6 +496,11 @@ def add_RobotControlServicer_to_server(servicer, server):
                     servicer.GetCmsState,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=brainstem__api_dot_cms__pb2.CmsState.SerializeToString,
+            ),
+            'GetControlStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetControlStatus,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=brainstem__api_dot_cms__pb2.ControlStatus.SerializeToString,
             ),
             'ListenHistory': grpc.unary_stream_rpc_method_handler(
                     servicer.ListenHistory,
@@ -578,6 +660,114 @@ class RobotControl(object):
             '/brainstem.api.v1.RobotControl/Walk',
             brainstem__api_dot_common__pb2.Vector3.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def WalkChecked(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/brainstem.api.v1.RobotControl/WalkChecked',
+            brainstem__api_dot_cms__pb2.WalkRequest.SerializeToString,
+            brainstem__api_dot_cms__pb2.CommandAck.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AcquireControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/brainstem.api.v1.RobotControl/AcquireControl',
+            brainstem__api_dot_cms__pb2.AcquireControlRequest.SerializeToString,
+            brainstem__api_dot_cms__pb2.ControlLease.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RenewControlLease(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/brainstem.api.v1.RobotControl/RenewControlLease',
+            brainstem__api_dot_cms__pb2.ControlLeaseRequest.SerializeToString,
+            brainstem__api_dot_cms__pb2.ControlLease.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReleaseControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/brainstem.api.v1.RobotControl/ReleaseControl',
+            brainstem__api_dot_cms__pb2.ControlLeaseRequest.SerializeToString,
+            brainstem__api_dot_cms__pb2.ControlStatus.FromString,
             options,
             channel_credentials,
             insecure,
@@ -794,6 +984,33 @@ class RobotControl(object):
             '/brainstem.api.v1.RobotControl/GetCmsState',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             brainstem__api_dot_cms__pb2.CmsState.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetControlStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/brainstem.api.v1.RobotControl/GetControlStatus',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            brainstem__api_dot_cms__pb2.ControlStatus.FromString,
             options,
             channel_credentials,
             insecure,
