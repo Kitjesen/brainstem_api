@@ -132,6 +132,18 @@ const ClearFaultRequest$json = {
 final $typed_data.Uint8List clearFaultRequestDescriptor = $convert.base64Decode(
     'ChFDbGVhckZhdWx0UmVxdWVzdBIbCglqb2ludF9pZHMYASADKA1SCGpvaW50SWRz');
 
+@$core.Deprecated('Use bodyHeightCommandDescriptor instead')
+const BodyHeightCommand$json = {
+  '1': 'BodyHeightCommand',
+  '2': [
+    {'1': 'meters', '3': 1, '4': 1, '5': 1, '10': 'meters'},
+  ],
+};
+
+/// Descriptor for `BodyHeightCommand`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List bodyHeightCommandDescriptor = $convert.base64Decode(
+    'ChFCb2R5SGVpZ2h0Q29tbWFuZBIWCgZtZXRlcnMYASABKAFSBm1ldGVycw==');
+
 @$core.Deprecated('Use historyDescriptor instead')
 const History$json = {
   '1': 'History',
@@ -217,6 +229,13 @@ const History$json = {
       '10': 'kd'
     },
     {'1': 'observation', '3': 11, '4': 3, '5': 1, '10': 'observation'},
+    {
+      '1': 'body_height_command',
+      '3': 12,
+      '4': 1,
+      '5': 1,
+      '10': 'bodyHeightCommand'
+    },
   ],
 };
 
@@ -233,7 +252,7 @@ final $typed_data.Uint8List historyDescriptor = $convert.base64Decode(
     'YW1wGAggASgLMhkuZ29vZ2xlLnByb3RvYnVmLkR1cmF0aW9uUgl0aW1lc3RhbXASKQoCa3AYCS'
     'ABKAsyGS5icmFpbnN0ZW0uYXBpLnYxLk1hdHJpeDRSAmtwEikKAmtkGAogASgLMhkuYnJhaW5z'
     'dGVtLmFwaS52MS5NYXRyaXg0UgJrZBIgCgtvYnNlcnZhdGlvbhgLIAMoAVILb2JzZXJ2YXRpb2'
-    '4=');
+    '4SLgoTYm9keV9oZWlnaHRfY29tbWFuZBgMIAEoAVIRYm9keUhlaWdodENvbW1hbmQ=');
 
 @$core.Deprecated('Use imuDescriptor instead')
 const Imu$json = {

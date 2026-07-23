@@ -53,6 +53,9 @@ service RobotControl {
   rpc StandUp(google.protobuf.Empty) returns (google.protobuf.Empty);
   // 从站立过渡到坐姿。
   rpc SitDown(google.protobuf.Empty) returns (google.protobuf.Empty);
+  // Update the body-height policy target; this does not directly actuate motors.
+  rpc SetBodyHeight(BodyHeightCommand) returns (google.protobuf.Empty);
+
   // 设置速度模式。NORMAL=默认, HIGH_SPEED=高速模式(最大 2.5m/s)。
   rpc SetSpeedMode(SpeedModeRequest) returns (google.protobuf.Empty);
   // 获取当前速度模式。
@@ -147,6 +150,12 @@ message ClearFaultRequest {
   // 要清除的关节索引（0-15）。为空则清除全部。
   repeated uint32 joint_ids = 1;
 }
+// Body-height policy target request.
+message BodyHeightCommand {
+  // Target body height in meters. The server rejects NaN and infinity.
+  double meters = 1;
+}
+
 
 // 单次推理周期的完整观测数据（RL policy 的输入/输出）。
 message History {
@@ -170,9 +179,11 @@ message History {
   Matrix4 kp = 9;
   // 当前 PD 控制器的微分增益（16 个关节）。
   Matrix4 kd = 10;
-  // [debug] ONNX 输入 buffer（285 维 = 5帧×57维）。
+  // [debug] Current policy input buffer (57/58 values x history length).
   // 仅在 Walking 时填充，用于对比验证。
   repeated double observation = 11;
+  // Current body-height policy target in meters.
+  double body_height_command = 12;
 }
 
 // IMU 传感器数据。

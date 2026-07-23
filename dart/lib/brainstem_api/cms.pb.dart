@@ -331,6 +331,63 @@ class ClearFaultRequest extends $pb.GeneratedMessage {
   $pb.PbList<$core.int> get jointIds => $_getList(0);
 }
 
+/// Body-height policy target request.
+class BodyHeightCommand extends $pb.GeneratedMessage {
+  factory BodyHeightCommand({
+    $core.double? meters,
+  }) {
+    final result = create();
+    if (meters != null) result.meters = meters;
+    return result;
+  }
+
+  BodyHeightCommand._();
+
+  factory BodyHeightCommand.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory BodyHeightCommand.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'BodyHeightCommand',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'brainstem.api.v1'),
+      createEmptyInstance: create)
+    ..aD(1, _omitFieldNames ? '' : 'meters')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  BodyHeightCommand clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  BodyHeightCommand copyWith(void Function(BodyHeightCommand) updates) =>
+      super.copyWith((message) => updates(message as BodyHeightCommand))
+          as BodyHeightCommand;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static BodyHeightCommand create() => BodyHeightCommand._();
+  @$core.override
+  BodyHeightCommand createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static BodyHeightCommand getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<BodyHeightCommand>(create);
+  static BodyHeightCommand? _defaultInstance;
+
+  /// Target body height in meters. The server rejects NaN and infinity.
+  @$pb.TagNumber(1)
+  $core.double get meters => $_getN(0);
+  @$pb.TagNumber(1)
+  set meters($core.double value) => $_setDouble(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasMeters() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMeters() => $_clearField(1);
+}
+
 /// 单次推理周期的完整观测数据（RL policy 的输入/输出）。
 class History extends $pb.GeneratedMessage {
   factory History({
@@ -345,6 +402,7 @@ class History extends $pb.GeneratedMessage {
     $1.Matrix4? kp,
     $1.Matrix4? kd,
     $core.Iterable<$core.double>? observation,
+    $core.double? bodyHeightCommand,
   }) {
     final result = create();
     if (gyroscope != null) result.gyroscope = gyroscope;
@@ -358,6 +416,7 @@ class History extends $pb.GeneratedMessage {
     if (kp != null) result.kp = kp;
     if (kd != null) result.kd = kd;
     if (observation != null) result.observation.addAll(observation);
+    if (bodyHeightCommand != null) result.bodyHeightCommand = bodyHeightCommand;
     return result;
   }
 
@@ -397,6 +456,7 @@ class History extends $pb.GeneratedMessage {
         subBuilder: $1.Matrix4.create)
     ..p<$core.double>(
         11, _omitFieldNames ? '' : 'observation', $pb.PbFieldType.KD)
+    ..aD(12, _omitFieldNames ? '' : 'bodyHeightCommand')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -541,6 +601,16 @@ class History extends $pb.GeneratedMessage {
   /// 仅在 Walking 时填充，用于对比验证。
   @$pb.TagNumber(11)
   $pb.PbList<$core.double> get observation => $_getList(10);
+
+  /// Current body-height policy target in meters.
+  @$pb.TagNumber(12)
+  $core.double get bodyHeightCommand => $_getN(11);
+  @$pb.TagNumber(12)
+  set bodyHeightCommand($core.double value) => $_setDouble(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasBodyHeightCommand() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearBodyHeightCommand() => $_clearField(12);
 }
 
 /// IMU 传感器数据。

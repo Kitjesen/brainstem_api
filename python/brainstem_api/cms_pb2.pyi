@@ -84,8 +84,14 @@ class ClearFaultRequest(_message.Message):
     joint_ids: _containers.RepeatedScalarFieldContainer[int]
     def __init__(self, joint_ids: _Optional[_Iterable[int]] = ...) -> None: ...
 
+class BodyHeightCommand(_message.Message):
+    __slots__ = ("meters",)
+    METERS_FIELD_NUMBER: _ClassVar[int]
+    meters: float
+    def __init__(self, meters: _Optional[float] = ...) -> None: ...
+
 class History(_message.Message):
-    __slots__ = ("gyroscope", "projected_gravity", "command", "joint_position", "joint_velocity", "action", "next_action", "timestamp", "kp", "kd", "observation")
+    __slots__ = ("gyroscope", "projected_gravity", "command", "joint_position", "joint_velocity", "action", "next_action", "timestamp", "kp", "kd", "observation", "body_height_command")
     GYROSCOPE_FIELD_NUMBER: _ClassVar[int]
     PROJECTED_GRAVITY_FIELD_NUMBER: _ClassVar[int]
     COMMAND_FIELD_NUMBER: _ClassVar[int]
@@ -97,6 +103,7 @@ class History(_message.Message):
     KP_FIELD_NUMBER: _ClassVar[int]
     KD_FIELD_NUMBER: _ClassVar[int]
     OBSERVATION_FIELD_NUMBER: _ClassVar[int]
+    BODY_HEIGHT_COMMAND_FIELD_NUMBER: _ClassVar[int]
     gyroscope: _common_pb2.Vector3
     projected_gravity: _common_pb2.Vector3
     command: Command
@@ -108,7 +115,8 @@ class History(_message.Message):
     kp: _common_pb2.Matrix4
     kd: _common_pb2.Matrix4
     observation: _containers.RepeatedScalarFieldContainer[float]
-    def __init__(self, gyroscope: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., projected_gravity: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., command: _Optional[_Union[Command, _Mapping]] = ..., joint_position: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., joint_velocity: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., action: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., next_action: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., timestamp: _Optional[_Union[datetime.timedelta, _duration_pb2.Duration, _Mapping]] = ..., kp: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., kd: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., observation: _Optional[_Iterable[float]] = ...) -> None: ...
+    body_height_command: float
+    def __init__(self, gyroscope: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., projected_gravity: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., command: _Optional[_Union[Command, _Mapping]] = ..., joint_position: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., joint_velocity: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., action: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., next_action: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., timestamp: _Optional[_Union[datetime.timedelta, _duration_pb2.Duration, _Mapping]] = ..., kp: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., kd: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., observation: _Optional[_Iterable[float]] = ..., body_height_command: _Optional[float] = ...) -> None: ...
 
 class Imu(_message.Message):
     __slots__ = ("gyroscope", "quaternion", "timestamp")

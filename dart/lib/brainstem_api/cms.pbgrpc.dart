@@ -86,6 +86,14 @@ class RobotControlClient extends $grpc.Client {
     return $createUnaryCall(_$sitDown, request, options: options);
   }
 
+  /// Update the body-height policy target; this does not directly actuate motors.
+  $grpc.ResponseFuture<$0.Empty> setBodyHeight(
+    $2.BodyHeightCommand request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$setBodyHeight, request, options: options);
+  }
+
   /// 设置速度模式。NORMAL=默认, HIGH_SPEED=高速模式(最大 2.5m/s)。
   $grpc.ResponseFuture<$0.Empty> setSpeedMode(
     $2.SpeedModeRequest request, {
@@ -266,6 +274,11 @@ class RobotControlClient extends $grpc.Client {
       '/brainstem.api.v1.RobotControl/SitDown',
       ($0.Empty value) => value.writeToBuffer(),
       $0.Empty.fromBuffer);
+  static final _$setBodyHeight =
+      $grpc.ClientMethod<$2.BodyHeightCommand, $0.Empty>(
+          '/brainstem.api.v1.RobotControl/SetBodyHeight',
+          ($2.BodyHeightCommand value) => value.writeToBuffer(),
+          $0.Empty.fromBuffer);
   static final _$setSpeedMode =
       $grpc.ClientMethod<$2.SpeedModeRequest, $0.Empty>(
           '/brainstem.api.v1.RobotControl/SetSpeedMode',
@@ -388,6 +401,13 @@ abstract class RobotControlServiceBase extends $grpc.Service {
         false,
         false,
         ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.BodyHeightCommand, $0.Empty>(
+        'SetBodyHeight',
+        setBodyHeight_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.BodyHeightCommand.fromBuffer(value),
         ($0.Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$2.SpeedModeRequest, $0.Empty>(
         'SetSpeedMode',
@@ -558,6 +578,14 @@ abstract class RobotControlServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.Empty> sitDown($grpc.ServiceCall call, $0.Empty request);
+
+  $async.Future<$0.Empty> setBodyHeight_Pre($grpc.ServiceCall $call,
+      $async.Future<$2.BodyHeightCommand> $request) async {
+    return setBodyHeight($call, await $request);
+  }
+
+  $async.Future<$0.Empty> setBodyHeight(
+      $grpc.ServiceCall call, $2.BodyHeightCommand request);
 
   $async.Future<$0.Empty> setSpeedMode_Pre($grpc.ServiceCall $call,
       $async.Future<$2.SpeedModeRequest> $request) async {

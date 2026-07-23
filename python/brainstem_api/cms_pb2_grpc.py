@@ -8,7 +8,7 @@ from brainstem_api import common_pb2 as brainstem__api_dot_common__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
-GRPC_GENERATED_VERSION = '1.78.0'
+GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -71,6 +71,11 @@ class RobotControlStub(object):
         self.SitDown = channel.unary_unary(
                 '/brainstem.api.v1.RobotControl/SitDown',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                _registered_method=True)
+        self.SetBodyHeight = channel.unary_unary(
+                '/brainstem.api.v1.RobotControl/SetBodyHeight',
+                request_serializer=brainstem__api_dot_cms__pb2.BodyHeightCommand.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 _registered_method=True)
         self.SetSpeedMode = channel.unary_unary(
@@ -216,6 +221,13 @@ class RobotControlServicer(object):
 
     def SitDown(self, request, context):
         """从站立过渡到坐姿。
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetBodyHeight(self, request, context):
+        """Update the body-height policy target; this does not directly actuate motors.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -388,6 +400,11 @@ def add_RobotControlServicer_to_server(servicer, server):
             'SitDown': grpc.unary_unary_rpc_method_handler(
                     servicer.SitDown,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'SetBodyHeight': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetBodyHeight,
+                    request_deserializer=brainstem__api_dot_cms__pb2.BodyHeightCommand.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'SetSpeedMode': grpc.unary_unary_rpc_method_handler(
@@ -631,6 +648,33 @@ class RobotControl(object):
             target,
             '/brainstem.api.v1.RobotControl/SitDown',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetBodyHeight(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/brainstem.api.v1.RobotControl/SetBodyHeight',
+            brainstem__api_dot_cms__pb2.BodyHeightCommand.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,
