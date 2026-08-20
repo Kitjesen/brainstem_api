@@ -1,6 +1,6 @@
 name: brainstem_api
 description: Brainstem robot control API — gRPC contracts for inovxio quadruped and humanoid robots.
-version: 2.1.0
+version: 2.2.0
 publish_to: none
 
 environment:

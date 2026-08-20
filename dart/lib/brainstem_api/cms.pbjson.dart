@@ -306,6 +306,14 @@ const Imu$json = {
       '6': '.google.protobuf.Duration',
       '10': 'timestamp'
     },
+    {
+      '1': 'linear_acceleration',
+      '3': 4,
+      '4': 1,
+      '5': 11,
+      '6': '.brainstem.api.v1.Vector3',
+      '10': 'linearAcceleration'
+    },
   ],
 };
 
@@ -314,7 +322,8 @@ final $typed_data.Uint8List imuDescriptor = $convert.base64Decode(
     'CgNJbXUSNwoJZ3lyb3Njb3BlGAEgASgLMhkuYnJhaW5zdGVtLmFwaS52MS5WZWN0b3IzUglneX'
     'Jvc2NvcGUSPAoKcXVhdGVybmlvbhgCIAEoCzIcLmJyYWluc3RlbS5hcGkudjEuUXVhdGVybmlv'
     'blIKcXVhdGVybmlvbhI3Cgl0aW1lc3RhbXAYAyABKAsyGS5nb29nbGUucHJvdG9idWYuRHVyYX'
-    'Rpb25SCXRpbWVzdGFtcA==');
+    'Rpb25SCXRpbWVzdGFtcBJKChNsaW5lYXJfYWNjZWxlcmF0aW9uGAQgASgLMhkuYnJhaW5zdGVt'
+    'LmFwaS52MS5WZWN0b3IzUhJsaW5lYXJBY2NlbGVyYXRpb24=');
 
 @$core.Deprecated('Use jointDescriptor instead')
 const Joint$json = {

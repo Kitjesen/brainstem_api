@@ -14,6 +14,12 @@ See `../../shared/proto/PROTO_GOVERNANCE.md` for the full governance rules.
 
 ---
 
+## [2.2.0] — 2026-08-21
+
+Adds optional `Imu.linear_acceleration` field 4. Values are body-frame m/s².
+The addition is wire-compatible with 2.1 clients and servers; clients must treat
+the field as absent when reading an older Server.
+
 ## [2.1.0] — 2026-07-15
 
 Adds an explicit autonomous-motion lease boundary. `WalkChecked` returns a

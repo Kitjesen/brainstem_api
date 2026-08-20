@@ -3,7 +3,7 @@
 `brainstem_api` 是 brainstem 控制栈对外的 gRPC / Protobuf 契约包，定义 inovxio
 四足和人形机器人的运动控制、传感器订阅、状态查询等接口。Dart + Python 双语言。
 
-**当前版本**：`2.1.0` (2026-07-15)
+**当前版本**：`2.2.0` (2026-08-21)
 
 前身为 `han_dog_message` v1.0.0。v2.0.0 是破坏性 rename —— 见 `CHANGELOG.md` 和
 `../../shared/proto/PROTO_GOVERNANCE.md`。
@@ -53,14 +53,15 @@
 | 关节角度 | rad |
 | 关节角速度 | rad/s |
 | IMU 角速度 | rad/s |
+| IMU 线加速度 | m/s² |
 | 力矩 | N·m |
-| 行走方向 | 归一化 [-1, 1] |
+| 机身速度 | `x/y`: m/s，`z`: rad/s |
 | 重力投影 | 单位向量 |
 | 时间戳 | `google.protobuf.Duration`（相对于会话开始时间） |
 
 ## 坐标系
 
-- **Body frame**：IMU 的角速度和重力投影均在机器人体坐标系下表示
+- **Body frame**：IMU 的角速度、线加速度和重力投影均在机器人体坐标系下表示
 - **重力投影**：静止水平放置时为 `(0, 0, -1)`
 - **行走方向**：`x` = 前后（正=前），`y` = 左右（正=左），`z` = 旋转（正=逆时针）
 - **四元数**：Hamilton 约定 `q = w + xi + yj + zk`，表示 world → body 旋转

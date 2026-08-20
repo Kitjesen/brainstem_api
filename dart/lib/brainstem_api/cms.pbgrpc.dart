@@ -62,7 +62,7 @@ class RobotControlClient extends $grpc.Client {
     return $createUnaryCall(_$disable, request, options: options);
   }
 
-  /// 行走：传入方向向量 (x=前后, y=左右, z=旋转)，范围 [-1, 1]。
+  /// 机身速度：x=前后 m/s，y=左右 m/s，z=旋转 rad/s。
   $grpc.ResponseFuture<$0.Empty> walk(
     $1.Vector3 request, {
     $grpc.CallOptions? options,

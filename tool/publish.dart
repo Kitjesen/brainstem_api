@@ -38,22 +38,50 @@ class Version implements Comparable<Version> {
   static bool isValid(String s) => pattern.hasMatch(s);
 }
 
-void checkVersion(String version, String pubspecPath, String pyprojectPath) {
-  final pubspecContent = File(pubspecPath).readAsStringSync();
-  final pyprojectContent = File(pyprojectPath).readAsStringSync();
-  final pubspecVer = pubspecVersion(pubspecContent)?.toString();
-  final pyprojectVer = pyprojectVersion(pyprojectContent)?.toString();
-  if (pubspecVer != version) {
-    print('WARNING: pubspec.yaml version is $pubspecVer, expected $version');
-  }
-  if (pyprojectVer != version) {
-    print(
-      'WARNING: pyproject.toml version is $pyprojectVer, expected $version',
+Version checkRepositoryVersion(Directory rootDir) {
+  final version = File('${rootDir.path}/VERSION').readAsStringSync().trim();
+  final pubspecVer = pubspecVersion(
+    File('${rootDir.path}/dart/pubspec.yaml').readAsStringSync(),
+  )?.toString();
+  final pyprojectVer = pyprojectVersion(
+    File('${rootDir.path}/python/pyproject.toml').readAsStringSync(),
+  )?.toString();
+  if (!Version.isValid(version) ||
+      pubspecVer != version ||
+      pyprojectVer != version) {
+    throw StateError(
+      'Repository versions differ: '
+      'VERSION=$version, dart/pubspec.yaml=$pubspecVer, '
+      'python/pyproject.toml=$pyprojectVer',
     );
   }
-  if (pubspecVer == version && pyprojectVer == version) {
-    print('Version check passed: $version');
+  return Version.parse(version);
+}
+
+void updateRepositoryVersion(Directory rootDir, Version version) {
+  final pubspecFile = File('${rootDir.path}/dart/pubspec.yaml');
+  final pyprojectFile = File('${rootDir.path}/python/pyproject.toml');
+  final pubspecContent = pubspecFile.readAsStringSync();
+  final pyprojectContent = pyprojectFile.readAsStringSync();
+  if (pubspecVersion(pubspecContent) == null ||
+      pyprojectVersion(pyprojectContent) == null) {
+    throw StateError('Repository version field is missing');
   }
+
+  File('${rootDir.path}/VERSION').writeAsStringSync('$version\n');
+  pubspecFile.writeAsStringSync(
+    pubspecContent.replaceFirst(
+      RegExp(r'version:\s*[^\n]+'),
+      'version: $version',
+    ),
+  );
+  pyprojectFile.writeAsStringSync(
+    pyprojectContent.replaceFirst(
+      RegExp(r'version\s*=\s*"[^"]+"'),
+      'version = "$version"',
+    ),
+  );
+  checkRepositoryVersion(rootDir);
 }
 
 Future<void> main(List<String> args) async {
@@ -62,12 +90,11 @@ Future<void> main(List<String> args) async {
       ? Directory(args[0])
       : File(Platform.script.toFilePath()).parent.parent;
 
-  // Paths for version check
-  final pubspecPath = '${rootDir.path}/dart/pubspec.yaml';
-  final pyprojectPath = '${rootDir.path}/python/pyproject.toml';
   final pythonDir = Directory('${rootDir.path}/python');
 
   print('Root directory: ${rootDir.path}');
+  final currentVersion = checkRepositoryVersion(rootDir);
+  print('Version check passed: $currentVersion');
 
   // Expand brainstem_api/*.proto manually
   final protoDir = Directory('${rootDir.path}/brainstem_api');
@@ -105,30 +132,7 @@ Future<void> main(List<String> args) async {
   print('Protos compiled.');
 
   // 2. Prompt for new version and update files
-  // Read current versions
-  final pubspecFile = File(pubspecPath);
-  final pubspecContent = pubspecFile.readAsStringSync();
-  final pyprojectFile = File(pyprojectPath);
-  final pyprojectContent = pyprojectFile.readAsStringSync();
-
-  final currentPubspecVer = pubspecVersion(pubspecContent);
-  final currentPyprojectVer = pyprojectVersion(pyprojectContent);
-
-  if (currentPubspecVer == null || currentPyprojectVer == null) {
-    print('Could not find current version in pubspec.yaml or pyproject.toml.');
-    exit(1);
-  }
-
-  if (currentPubspecVer.compareTo(currentPyprojectVer) != 0) {
-    print(
-      'Version mismatch: pubspec.yaml has $currentPubspecVer, pyproject.toml has $currentPyprojectVer',
-    );
-    exit(1);
-  }
-
-  final currentVersion = currentPubspecVer;
-
-  Version? newVersion;
+  late final Version newVersion;
   final suggestedVersion = currentVersion + 1;
   while (true) {
     stdout.write(
@@ -153,24 +157,8 @@ Future<void> main(List<String> args) async {
   }
   final version = newVersion.toString();
 
-  // Update pubspec.yaml
-  final newPubspec = pubspecContent.replaceFirst(
-    RegExp(r'version:\s*[^\n]+'),
-    'version: $version',
-  );
-  pubspecFile.writeAsStringSync(newPubspec);
-
-  // Update pyproject.toml
-  final newPyproject = pyprojectContent.replaceFirst(
-    RegExp(r'version\s*=\s*"[^"]+"'),
-    'version = "$version"',
-  );
-  pyprojectFile.writeAsStringSync(newPyproject);
-
-  print('Updated versions to $version in pubspec.yaml and pyproject.toml.');
-
-  // Check versions
-  checkVersion(version, pubspecPath, pyprojectPath);
+  updateRepositoryVersion(rootDir, newVersion);
+  print('Updated VERSION, pubspec.yaml, and pyproject.toml to $version.');
 
   // 3. Create git tag and push
   final tag = 'v$version';

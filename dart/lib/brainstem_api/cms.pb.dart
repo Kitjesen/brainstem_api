@@ -550,11 +550,14 @@ class Imu extends $pb.GeneratedMessage {
     $1.Vector3? gyroscope,
     $1.Quaternion? quaternion,
     $4.Duration? timestamp,
+    $1.Vector3? linearAcceleration,
   }) {
     final result = create();
     if (gyroscope != null) result.gyroscope = gyroscope;
     if (quaternion != null) result.quaternion = quaternion;
     if (timestamp != null) result.timestamp = timestamp;
+    if (linearAcceleration != null)
+      result.linearAcceleration = linearAcceleration;
     return result;
   }
 
@@ -578,6 +581,8 @@ class Imu extends $pb.GeneratedMessage {
         subBuilder: $1.Quaternion.create)
     ..aOM<$4.Duration>(3, _omitFieldNames ? '' : 'timestamp',
         subBuilder: $4.Duration.create)
+    ..aOM<$1.Vector3>(4, _omitFieldNames ? '' : 'linearAcceleration',
+        subBuilder: $1.Vector3.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -633,6 +638,18 @@ class Imu extends $pb.GeneratedMessage {
   void clearTimestamp() => $_clearField(3);
   @$pb.TagNumber(3)
   $4.Duration ensureTimestamp() => $_ensure(2);
+
+  /// 线加速度 (m/s²)，body frame；旧服务端可能不提供该字段。
+  @$pb.TagNumber(4)
+  $1.Vector3 get linearAcceleration => $_getN(3);
+  @$pb.TagNumber(4)
+  set linearAcceleration($1.Vector3 value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasLinearAcceleration() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearLinearAcceleration() => $_clearField(4);
+  @$pb.TagNumber(4)
+  $1.Vector3 ensureLinearAcceleration() => $_ensure(3);
 }
 
 enum Joint_Data { singleJoint, allJoints, notSet }
@@ -1529,6 +1546,7 @@ class WalkRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearSequence() => $_clearField(2);
 
+  /// Body-frame physical velocity: x/y in m/s, z in rad/s.
   @$pb.TagNumber(3)
   $1.Vector3 get direction => $_getN(2);
   @$pb.TagNumber(3)
@@ -1953,7 +1971,7 @@ class Command extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $0.Empty ensureSitDown() => $_ensure(2);
 
-  /// 行走：(x=前后, y=左右, z=旋转)，范围 [-1, 1]。
+  /// 机身速度：x=前后 m/s，y=左右 m/s，z=旋转 rad/s。
   @$pb.TagNumber(4)
   $1.Vector3 get walk => $_getN(3);
   @$pb.TagNumber(4)

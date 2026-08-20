@@ -143,14 +143,16 @@ class History(_message.Message):
     def __init__(self, gyroscope: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., projected_gravity: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., command: _Optional[_Union[Command, _Mapping]] = ..., joint_position: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., joint_velocity: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., action: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., next_action: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., timestamp: _Optional[_Union[datetime.timedelta, _duration_pb2.Duration, _Mapping]] = ..., kp: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., kd: _Optional[_Union[_common_pb2.Matrix4, _Mapping]] = ..., observation: _Optional[_Iterable[float]] = ...) -> None: ...
 
 class Imu(_message.Message):
-    __slots__ = ("gyroscope", "quaternion", "timestamp")
+    __slots__ = ("gyroscope", "quaternion", "timestamp", "linear_acceleration")
     GYROSCOPE_FIELD_NUMBER: _ClassVar[int]
     QUATERNION_FIELD_NUMBER: _ClassVar[int]
     TIMESTAMP_FIELD_NUMBER: _ClassVar[int]
+    LINEAR_ACCELERATION_FIELD_NUMBER: _ClassVar[int]
     gyroscope: _common_pb2.Vector3
     quaternion: _common_pb2.Quaternion
     timestamp: _duration_pb2.Duration
-    def __init__(self, gyroscope: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., quaternion: _Optional[_Union[_common_pb2.Quaternion, _Mapping]] = ..., timestamp: _Optional[_Union[datetime.timedelta, _duration_pb2.Duration, _Mapping]] = ...) -> None: ...
+    linear_acceleration: _common_pb2.Vector3
+    def __init__(self, gyroscope: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ..., quaternion: _Optional[_Union[_common_pb2.Quaternion, _Mapping]] = ..., timestamp: _Optional[_Union[datetime.timedelta, _duration_pb2.Duration, _Mapping]] = ..., linear_acceleration: _Optional[_Union[_common_pb2.Vector3, _Mapping]] = ...) -> None: ...
 
 class Joint(_message.Message):
     __slots__ = ("single_joint", "all_joints", "timestamp")

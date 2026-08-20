@@ -226,7 +226,7 @@ class RobotControlServicer(object):
     def Walk(self, request, context):
         """──── 运动指令（经仲裁器，可能被拒绝） ────
 
-        行走：传入方向向量 (x=前后, y=左右, z=旋转)，范围 [-1, 1]。
+        机身速度：x=前后 m/s，y=左右 m/s，z=旋转 rad/s。
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
