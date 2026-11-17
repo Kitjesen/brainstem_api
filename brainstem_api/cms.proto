@@ -12,16 +12,17 @@
 //   - 废弃功能至少保留 2 个大版本后才移除
 //   - 破坏性变更只在大版本号升级时发生 (v3.0.0)
 //
-// v2.0.0 breaking changes from 1.0.0 (legacy han_dog_message):
-//   - proto package: han_dog → brainstem.api.v1
+// v2.0.0 breaking changes from 1.0.0 (legacy brainstem_api):
+//   - proto package: thunder → brainstem.api.v1
 //   - service:       Cms → RobotControl
-//   - Dart package:  han_dog_message → brainstem_api
-//   - Python pkg:    han_dog_message → brainstem_api
+//   - Dart package:  brainstem_api → brainstem_api
+//   - Python pkg:    brainstem_api → brainstem_api
 
 syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "brainstem_api/common.proto";
+import "brainstem_api/recovery.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 
@@ -254,6 +255,8 @@ message ProfileInfo {
   repeated string descriptions = 3;
   // 当前策略的说明。
   string current_description = 4;
+  repeated RobotModeCapability mode_capabilities = 5;
+  string active_mode_id = 6;
 }
 
 // 运动指令。

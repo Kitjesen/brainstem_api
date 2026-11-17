@@ -7,3 +7,6 @@ export 'brainstem_api/common.pb.dart';
 export 'brainstem_api/common.pbenum.dart';
 export 'brainstem_api/mujoco.pb.dart';
 export 'brainstem_api/mujoco.pbgrpc.dart';
+export 'brainstem_api/recovery.pb.dart';
+export 'brainstem_api/recovery.pbenum.dart';
+export 'brainstem_api/recovery.pbgrpc.dart';
