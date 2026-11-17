@@ -2,6 +2,7 @@ import datetime
 
 from google.protobuf import empty_pb2 as _empty_pb2
 from brainstem_api import common_pb2 as _common_pb2
+from brainstem_api import recovery_pb2 as _recovery_pb2
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf import duration_pb2 as _duration_pb2
 from google.protobuf.internal import containers as _containers
@@ -203,16 +204,20 @@ class ProfileRequest(_message.Message):
     def __init__(self, name: _Optional[str] = ...) -> None: ...
 
 class ProfileInfo(_message.Message):
-    __slots__ = ("current", "available", "descriptions", "current_description")
+    __slots__ = ("current", "available", "descriptions", "current_description", "mode_capabilities", "active_mode_id")
     CURRENT_FIELD_NUMBER: _ClassVar[int]
     AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTIONS_FIELD_NUMBER: _ClassVar[int]
     CURRENT_DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
+    MODE_CAPABILITIES_FIELD_NUMBER: _ClassVar[int]
+    ACTIVE_MODE_ID_FIELD_NUMBER: _ClassVar[int]
     current: str
     available: _containers.RepeatedScalarFieldContainer[str]
     descriptions: _containers.RepeatedScalarFieldContainer[str]
     current_description: str
-    def __init__(self, current: _Optional[str] = ..., available: _Optional[_Iterable[str]] = ..., descriptions: _Optional[_Iterable[str]] = ..., current_description: _Optional[str] = ...) -> None: ...
+    mode_capabilities: _containers.RepeatedCompositeFieldContainer[_recovery_pb2.RobotModeCapability]
+    active_mode_id: str
+    def __init__(self, current: _Optional[str] = ..., available: _Optional[_Iterable[str]] = ..., descriptions: _Optional[_Iterable[str]] = ..., current_description: _Optional[str] = ..., mode_capabilities: _Optional[_Iterable[_Union[_recovery_pb2.RobotModeCapability, _Mapping]]] = ..., active_mode_id: _Optional[str] = ...) -> None: ...
 
 class CmsState(_message.Message):
     __slots__ = ("kind", "transition", "gesture_name")

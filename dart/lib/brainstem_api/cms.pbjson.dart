@@ -479,6 +479,15 @@ const ProfileInfo$json = {
       '5': 9,
       '10': 'currentDescription'
     },
+    {
+      '1': 'mode_capabilities',
+      '3': 5,
+      '4': 3,
+      '5': 11,
+      '6': '.brainstem.api.v1.RobotModeCapability',
+      '10': 'modeCapabilities'
+    },
+    {'1': 'active_mode_id', '3': 6, '4': 1, '5': 9, '10': 'activeModeId'},
   ],
 };
 
@@ -486,7 +495,9 @@ const ProfileInfo$json = {
 final $typed_data.Uint8List profileInfoDescriptor = $convert.base64Decode(
     'CgtQcm9maWxlSW5mbxIYCgdjdXJyZW50GAEgASgJUgdjdXJyZW50EhwKCWF2YWlsYWJsZRgCIA'
     'MoCVIJYXZhaWxhYmxlEiIKDGRlc2NyaXB0aW9ucxgDIAMoCVIMZGVzY3JpcHRpb25zEi8KE2N1'
-    'cnJlbnRfZGVzY3JpcHRpb24YBCABKAlSEmN1cnJlbnREZXNjcmlwdGlvbg==');
+    'cnJlbnRfZGVzY3JpcHRpb24YBCABKAlSEmN1cnJlbnREZXNjcmlwdGlvbhJSChFtb2RlX2NhcG'
+    'FiaWxpdGllcxgFIAMoCzIlLmJyYWluc3RlbS5hcGkudjEuUm9ib3RNb2RlQ2FwYWJpbGl0eVIQ'
+    'bW9kZUNhcGFiaWxpdGllcxIkCg5hY3RpdmVfbW9kZV9pZBgGIAEoCVIMYWN0aXZlTW9kZUlk');
 
 @$core.Deprecated('Use cmsStateDescriptor instead')
 const CmsState$json = {

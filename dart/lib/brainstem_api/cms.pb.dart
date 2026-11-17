@@ -20,6 +20,7 @@ import 'package:protobuf/well_known_types/google/protobuf/empty.pb.dart' as $0;
 
 import 'cms.pbenum.dart';
 import 'common.pb.dart' as $1;
+import 'recovery.pb.dart' as $5;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -1097,6 +1098,8 @@ class ProfileInfo extends $pb.GeneratedMessage {
     $core.Iterable<$core.String>? available,
     $core.Iterable<$core.String>? descriptions,
     $core.String? currentDescription,
+    $core.Iterable<$5.RobotModeCapability>? modeCapabilities,
+    $core.String? activeModeId,
   }) {
     final result = create();
     if (current != null) result.current = current;
@@ -1104,6 +1107,9 @@ class ProfileInfo extends $pb.GeneratedMessage {
     if (descriptions != null) result.descriptions.addAll(descriptions);
     if (currentDescription != null)
       result.currentDescription = currentDescription;
+    if (modeCapabilities != null)
+      result.modeCapabilities.addAll(modeCapabilities);
+    if (activeModeId != null) result.activeModeId = activeModeId;
     return result;
   }
 
@@ -1125,6 +1131,9 @@ class ProfileInfo extends $pb.GeneratedMessage {
     ..pPS(2, _omitFieldNames ? '' : 'available')
     ..pPS(3, _omitFieldNames ? '' : 'descriptions')
     ..aOS(4, _omitFieldNames ? '' : 'currentDescription')
+    ..pPM<$5.RobotModeCapability>(5, _omitFieldNames ? '' : 'modeCapabilities',
+        subBuilder: $5.RobotModeCapability.create)
+    ..aOS(6, _omitFieldNames ? '' : 'activeModeId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1173,6 +1182,18 @@ class ProfileInfo extends $pb.GeneratedMessage {
   $core.bool hasCurrentDescription() => $_has(3);
   @$pb.TagNumber(4)
   void clearCurrentDescription() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $pb.PbList<$5.RobotModeCapability> get modeCapabilities => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.String get activeModeId => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set activeModeId($core.String value) => $_setString(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasActiveModeId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearActiveModeId() => $_clearField(6);
 }
 
 class CmsState extends $pb.GeneratedMessage {

@@ -217,7 +217,8 @@ class RobotControlClient extends $grpc.Client {
     return $createUnaryCall(_$getParams, request, options: options);
   }
 
-  /// 切换到指定策略。机器人必须在 Grounded 状态。
+  /// 切换到指定运动策略。Standing 或 Grounded（prone / 趴地）时允许；
+  /// Walking 期间不允许，已选择 fall recovery 时也不允许。
   $grpc.ResponseFuture<$2.ProfileInfo> switchProfile(
     $2.ProfileRequest request, {
     $grpc.CallOptions? options,

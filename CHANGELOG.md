@@ -14,6 +14,26 @@ See `../../shared/proto/PROTO_GOVERNANCE.md` for the full governance rules.
 
 ---
 
+## [2.3.0] — 2026-11-17
+
+Adds `RobotRecovery` (`brainstem_api/recovery.proto`), the live recovery
+contract used by Brainstem and the DOSO App. It is a separate service from
+locomotion `SwitchProfile`. Python stubs `recovery_pb2` and
+`recovery_pb2_grpc` are generated and exported next to the existing Dart stubs.
+Python `cms_pb2` is regenerated from `cms.proto`, so the 2.1 lease messages,
+2.2 `Imu.linear_acceleration`, and the new profile fields are all present.
+
+`ProfileInfo` gains `mode_capabilities` (field 5) and `active_mode_id`
+(field 6). The addition is wire-compatible with 2.2 clients and servers;
+clients must treat the fields as absent when reading an older server.
+
+`SwitchProfile` is allowed while the robot is standing or grounded
+(prone / 趴地). It is not allowed while walking or while fall recovery
+is selected.
+
+The Dart package no longer sets `resolution: workspace`, so a checkout of
+this repository resolves on its own.
+
 ## [2.2.0] — 2026-08-21
 
 Adds optional `Imu.linear_acceleration` field 4. Values are body-frame m/s².

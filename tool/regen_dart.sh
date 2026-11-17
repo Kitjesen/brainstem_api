@@ -29,9 +29,10 @@ echo "Cleaned old files"
 protoc \
   --dart_out="grpc:$DART_OUT/" \
   -I "$ROOT_DIR" \
-  "$ROOT_DIR/brainstem_api/cms.proto" \
   "$ROOT_DIR/brainstem_api/common.proto" \
-  "$ROOT_DIR/brainstem_api/mujoco.proto"
+  "$ROOT_DIR/brainstem_api/mujoco.proto" \
+  "$ROOT_DIR/brainstem_api/recovery.proto" \
+  "$ROOT_DIR/brainstem_api/cms.proto"
 
 echo "Generated proto stubs"
 
