@@ -21,7 +21,8 @@ import 'recovery.pb.dart' as $0;
 
 export 'recovery.pb.dart';
 
-/// Candidate contract only: recovery is not a locomotion SwitchProfile request.
+/// Current live contract used by Brainstem and the DOSO App.
+/// Recovery is not a locomotion SwitchProfile request.
 @$pb.GrpcServiceName('brainstem.api.v1.RobotRecovery')
 class RobotRecoveryClient extends $grpc.Client {
   /// The hostname for this service.

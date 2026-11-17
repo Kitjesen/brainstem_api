@@ -1,22 +1,22 @@
 # brainstem_api
 
-`brainstem_api` 是 brainstem 控制栈对外的 gRPC / Protobuf 契约包，定义 inovxio
-四足和人形机器人的运动控制、传感器订阅、状态查询等接口。Dart + Python 双语言。
+`brainstem_api` 是独立仓库中的 brainstem 控制栈 gRPC / Protobuf 契约，定义 inovxio
+四足和人形机器人的运动控制、跌倒恢复、传感器订阅和状态查询接口。Dart + Python 双语言。
 
-**当前版本**：`2.2.0` (2026-08-21)
+**当前版本**：`2.3.0` (2026-11-17)
 
-前身为 `han_dog_message` v1.0.0。v2.0.0 是破坏性 rename —— 见 `CHANGELOG.md` 和
-`../../shared/proto/PROTO_GOVERNANCE.md`。
+前身为 `han_dog_message` v1.0.0。v2.0.0 是破坏性 rename —— 见 `CHANGELOG.md`。
 
 ## 概述
 
-本包定义了 brainstem 对外的所有 gRPC 服务：
+本仓库定义 brainstem 对外的 gRPC 服务：
 
 | 服务 | 用途 | 定义文件 |
 |------|------|---------|
-| **RobotControl** | 主控服务：运动指令 + 传感器监控（1.x 的 `Cms` 继任者） | `cms.proto` |
-| **Mujoco** | MuJoCo 物理仿真接口 | `mujoco.proto` |
-| **MujocoViewer** | MuJoCo 可视化回放 | `mujoco.proto` |
+| **RobotControl** | 主控服务：运动指令 + 传感器监控（1.x 的 `Cms` 继任者） | `brainstem_api/cms.proto` |
+| **RobotRecovery** | 跌倒恢复会话：进入、使能、心跳、退出、状态与动作。不是运动策略 `SwitchProfile` | `brainstem_api/recovery.proto` |
+| **Mujoco** | MuJoCo 物理仿真接口 | `brainstem_api/mujoco.proto` |
+| **MujocoViewer** | MuJoCo 可视化回放 | `brainstem_api/mujoco.proto` |
 
 - **proto package**: `brainstem.api.v1`
 - **default gRPC port**: `:13145` (RobotControl)
@@ -75,6 +75,7 @@ brainstem_api/
 ├── brainstem_api/          # Proto 源文件
 │   ├── common.proto        #   通用数据类型 (Vector3, Matrix4, Quaternion ...)
 │   ├── cms.proto           #   RobotControl 服务 (指令 + 监控)
+│   ├── recovery.proto      #   RobotRecovery 服务 (跌倒恢复)
 │   └── mujoco.proto        #   MuJoCo 仿真接口
 ├── dart/                   # Dart 生成代码 + 包配置
 │   ├── lib/
@@ -82,33 +83,44 @@ brainstem_api/
 │   │   └── brainstem_api/*.pb.dart  # 生成的消息类
 │   └── pubspec.yaml
 ├── python/                 # Python 生成代码 + 包配置
-│   ├── brainstem_api/*_pb2.py       # 生成的消息类
+│   ├── brainstem_api/*_pb2.py       # 生成的消息类（含 recovery_pb2.py）
+│   ├── brainstem_api/*_pb2_grpc.py  # 生成的 gRPC 桩（含 recovery_pb2_grpc.py）
 │   └── pyproject.toml
 └── tool/
     ├── publish.dart        # 版本发布脚本
-    └── regen_dart.sh       # Dart codegen 重生成
+    ├── regen_dart.sh       # Dart codegen 重生成
+    └── regen_python.sh     # Python codegen 重生成
 ```
 
 > Proto 文件放在 `brainstem_api/` 而非 `protos/`，是为了兼容 Python 的包导入路径。
 
 ## 安装
 
-`brainstem_api` 是 `brain/brainstem` monorepo 的子包。
+克隆本仓库即可使用。Dart 包在 `dart/`，Python 包在 `python/`。
 
-### Dart (monorepo 内依赖)
+### Dart
+
+其他项目可以通过 git 依赖引用：
 
 ```yaml
-# 在同仓库的 pubspec.yaml 里
 dependencies:
-  brainstem_api: ^2.0.0
+  brainstem_api:
+    git:
+      url: https://github.com/Kitjesen/brainstem_api.git
+      path: dart
 ```
 
-同仓库消费者通过 workspace 解析（见 `brain/brainstem/pubspec.yaml`）。
-
-### Python (开发模式)
+在本仓库里解析并检查：
 
 ```bash
-cd brain/brainstem/brainstem_api/python
+cd dart
+dart pub get
+```
+
+### Python
+
+```bash
+cd python
 pip install -e .
 ```
 
@@ -122,6 +134,7 @@ import 'package:brainstem_api/brainstem_api.dart';
 
 final channel = ClientChannel('localhost', port: 13145);
 final client = RobotControlClient(channel);
+final recovery = RobotRecoveryClient(channel);
 
 // 订阅实时推理数据
 await for (final history in client.listenHistory(Empty())) {
@@ -134,11 +147,12 @@ await for (final history in client.listenHistory(Empty())) {
 
 ```python
 import grpc
-from brainstem_api import cms_pb2, cms_pb2_grpc
+from brainstem_api import cms_pb2_grpc, recovery_pb2_grpc
 from google.protobuf.empty_pb2 import Empty
 
 channel = grpc.insecure_channel('localhost:13145')
 stub = cms_pb2_grpc.RobotControlStub(channel)
+recovery = recovery_pb2_grpc.RobotRecoveryStub(channel)
 
 # 订阅实时推理数据
 for history in stub.ListenHistory(Empty()):
@@ -172,12 +186,10 @@ protoc --dart_out=grpc:dart/lib/ -I . brainstem_api/*.proto
 
 ### 生成 Python 代码
 
+使用与已提交桩相同的 `grpcio-tools==1.78.0`：
+
 ```bash
-cd python
-poetry run python -m grpc_tools.protoc \
-  -I .. \
-  --python_out=. --pyi_out=. --grpc_python_out=. \
-  ../brainstem_api/*.proto
+bash tool/regen_python.sh
 ```
 
 ## 发布新版本
@@ -193,4 +205,4 @@ dart run tool/publish.dart
 ```
 
 > 破坏性变更（改 package、改 service 名、改字段类型）要走 MAJOR bump，并同步更新
-> 所有消费者。参见 `../../shared/proto/PROTO_GOVERNANCE.md`。
+> 所有消费者。版本记录见 `CHANGELOG.md`。

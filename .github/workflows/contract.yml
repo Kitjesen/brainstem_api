@@ -1,0 +1,68 @@
+name: contract
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python-stubs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned codegen
+        run: python -m pip install --disable-pip-version-check "grpcio-tools==1.78.0" "protobuf==6.33.0" "grpcio==1.78.0"
+      - name: Regenerate Python stubs
+        run: bash tool/regen_python.sh
+      - name: Generated Python stubs match the commit
+        run: git diff --exit-code
+      - name: Import RobotControl and RobotRecovery
+        run: |
+          PYTHONPATH=python python - <<'PY'
+          from brainstem_api import (
+              Imu,
+              ProfileInfo,
+              RecoveryStatus,
+              RobotRecoveryServicer,
+              RobotRecoveryStub,
+              add_RobotRecoveryServicer_to_server,
+          )
+          from brainstem_api.cms_pb2 import WalkRequest
+          from brainstem_api.recovery_pb2 import DESCRIPTOR
+
+          assert ProfileInfo.DESCRIPTOR.fields_by_name["mode_capabilities"].number == 5
+          assert ProfileInfo.DESCRIPTOR.fields_by_name["active_mode_id"].number == 6
+          assert Imu.DESCRIPTOR.fields_by_name["linear_acceleration"].number == 4
+          assert WalkRequest.DESCRIPTOR.fields_by_name["direction"].number == 3
+          service = DESCRIPTOR.services_by_name["RobotRecovery"]
+          assert [method.name for method in service.methods] == [
+              "Enter",
+              "Enable",
+              "Heartbeat",
+              "Exit",
+              "GetStatus",
+              "Start",
+              "Cancel",
+          ]
+          assert RobotRecoveryStub.__name__ == "RobotRecoveryStub"
+          assert callable(add_RobotRecoveryServicer_to_server)
+          assert RecoveryStatus().phase == 0
+          assert RobotRecoveryServicer.__name__ == "RobotRecoveryServicer"
+          PY
+
+  dart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.10.7
+      - name: Resolve and analyze
+        working-directory: dart
+        run: |
+          dart pub get
+          dart analyze lib
+      - name: Version files agree
+        run: dart run tool/version_contract_test.dart

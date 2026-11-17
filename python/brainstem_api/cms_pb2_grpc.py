@@ -360,7 +360,8 @@ class RobotControlServicer(object):
     def SwitchProfile(self, request, context):
         """──── 策略切换 ────
 
-        切换到指定策略。机器人必须在 Grounded 状态。
+        切换到指定运动策略。Standing 或 Grounded（prone / 趴地）时允许；
+        Walking 期间不允许，已选择 fall recovery 时也不允许。
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

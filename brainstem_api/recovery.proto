@@ -4,7 +4,8 @@ import "google/protobuf/empty.proto";
 
 package brainstem.api.v1;
 
-// Candidate contract only: recovery is not a locomotion SwitchProfile request.
+// Current live contract used by Brainstem and the DOSO App.
+// Recovery is not a locomotion SwitchProfile request.
 service RobotRecovery {
   // Selecting recovery does not enable motors. Heartbeat every 100 ms; expiry is 300 ms.
   rpc Enter(RecoveryStartRequest) returns (RecoveryStatus);

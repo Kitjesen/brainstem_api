@@ -3,7 +3,7 @@
 // RobotControl — brainstem 对外的主控 gRPC 服务。
 // 提供运动控制指令和实时传感器数据流。
 //
-// API Version: 2.2.0 (2026-08-21)
+// API Version: 2.3.0 (2026-11-17)
 //
 // 兼容性承诺 (within 2.x):
 //   - 现有 RPC 的签名和语义不会改变
@@ -12,11 +12,11 @@
 //   - 废弃功能至少保留 2 个大版本后才移除
 //   - 破坏性变更只在大版本号升级时发生 (v3.0.0)
 //
-// v2.0.0 breaking changes from 1.0.0 (legacy brainstem_api):
-//   - proto package: thunder → brainstem.api.v1
+// v2.0.0 breaking changes from 1.0.0 (legacy han_dog_message):
+//   - proto package: han_dog → brainstem.api.v1
 //   - service:       Cms → RobotControl
-//   - Dart package:  brainstem_api → brainstem_api
-//   - Python pkg:    brainstem_api → brainstem_api
+//   - Dart package:  han_dog_message → brainstem_api
+//   - Python pkg:    han_dog_message → brainstem_api
 
 syntax = "proto3";
 
@@ -92,7 +92,8 @@ service RobotControl {
 
   // ──── 策略切换 ────
 
-  // 切换到指定策略。机器人必须在 Grounded 状态。
+  // 切换到指定运动策略。Standing 或 Grounded（prone / 趴地）时允许；
+  // Walking 期间不允许，已选择 fall recovery 时也不允许。
   rpc SwitchProfile(ProfileRequest) returns (ProfileInfo);
   // 获取当前策略信息。
   rpc GetProfile(google.protobuf.Empty) returns (ProfileInfo);
